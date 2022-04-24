@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WorkNotes.Business\WorkNotes.Business.csproj" />
     <ProjectReference Include="..\WorkNotes.Common\WorkNotes.Common.csproj" />
+    <ProjectReference Include="..\WorkNotes.Configuration\WorkNotes.Configuration.csproj" />
     <ProjectReference Include="..\WorkNotes.Entities\WorkNotes.Entities.csproj" />
     <ProjectReference Include="..\WorkNotes.Models\WorkNotes.Models.csproj" />
   </ItemGroup>

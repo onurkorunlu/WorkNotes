@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using WorkNotes.Business.Interfaces;
 using WorkNotes.Common;
 using WorkNotes.Core;
@@ -11,6 +13,9 @@ namespace WorkNotes.Business.Services
 {
     public class ProjectService : IProjectService
     {
+        private readonly string dateFormat = "dd MM yy";
+        private readonly CultureInfo provider = new CultureInfo("tr-TR");
+
         public ICollection<Project> GetAll()
         {
             return AppServiceProvider.Instance.Get<IProjectDataAccess>().GetAll();
@@ -23,6 +28,7 @@ namespace WorkNotes.Business.Services
 
         public Project Create(AddProjectRequestModel model)
         {
+
             Project project = new()
             {
                 Title = model.Title.SafeTrim(),

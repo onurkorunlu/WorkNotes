@@ -3,9 +3,7 @@
 @model AddProjectRequestModel
 <!-- Column Center -->
 <div class="chute chute-center">
-
     <div class="mw1000 center-block">
-
         <!-- Spec Form -->
         <div class="allcp-form">
             <div class="panel">
@@ -14,25 +12,21 @@
                     <hr />
                 </div>
                 <div class="panel-body pn">
-                    <form method="post" action="#" id="form-ui">
+                    <form method="post" action="#" id="form">
                         <!-- Basic -->
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="section">
                                     <h6>@Html.DisplayNameFor(x => x.Code)</h6>
-                                    <label class="field">
-                                        @Html.TextBoxFor(x => x.Code, new { @Class = "form-control typeahead" })
-                                        @Html.ValidationMessageFor(x => x.Code, "", new { @class = "text-danger", })
-                                    </label>
+                                    @Html.TextBoxFor(x => x.Code, new { @Class = "form-control typeahead", @Style="text-transform:uppercase" })
+                                    @Html.ValidationMessageFor(x => x.Code, "", new { @class = "text-danger", })
                                 </div>
                             </div>
                             <div class="col-md-9">
                                 <div class="section">
                                     <h6>@Html.DisplayNameFor(x => x.Title)</h6>
-                                    <label class="field">
-                                        @Html.TextBoxFor(x => x.Title, new { @Class = "gui-input" , @autocomplete="off"})
-                                        @Html.ValidationMessageFor(x => x.Title, "", new { @class = "text-danger", })
-                                    </label>
+                                    @Html.TextBoxFor(x => x.Title, new { @Class = "form-control" , @autocomplete="off"})
+                                    @Html.ValidationMessageFor(x => x.Title, "", new { @class = "text-danger", })
                                 </div>
                             </div>
                         </div>
@@ -41,10 +35,8 @@
                             <div class="col-md-12">
                                 <div class="section">
                                     <h6>@Html.DisplayNameFor(x => x.Description)</h6>
-                                    <label class="field">
-                                        @Html.TextAreaFor(x => x.Description, new { @Class = "gui-input" })
-                                        @Html.ValidationMessageFor(x => x.Description, "", new { @class = "text-danger", })
-                                    </label>
+                                    @Html.TextAreaFor(x => x.Description, new { @Class = "form-control" , @autocomplete="off", @Rows="3"})
+                                    @Html.ValidationMessageFor(x => x.Description, "", new { @class = "text-danger", })
                                 </div>
                             </div>
                         </div>
@@ -53,21 +45,14 @@
                             <div class="col-md-5">
                                 <div class="section">
                                     <h6>@Html.DisplayNameFor(x => x.Status)</h6>
-                                    <label class="field select">
-                                        <select asp-for="Status" asp-items="Html.GetEnumSelectList(typeof(ProjectStatus))" class="form-control typeahead"></select>
-                                        <i class="arrow"></i>
-
-                                        @Html.ValidationMessageFor(x => x.Status, "", new { @class = "text-danger", })
-                                    </label>
+                                    <select asp-for="Status" asp-items="Html.GetEnumSelectList(typeof(ProjectStatus))" class="form-control"></select>
+                                    @Html.ValidationMessageFor(x => x.Status, "", new { @class = "text-danger", })
                                 </div>
                             </div>
                             <div class="col-md-7">
                                 <div class="section">
-                                    <label class="field">
-                                        <h6>@Html.DisplayNameFor(x => x.TargetDate)</h6>
-                                        @Html.TextBoxFor(x => x.TargetDate, new { @Class = "form-control", @type = "text", @autocomplete = "off" })
-                                        @Html.ValidationMessageFor(x => x.TargetDate, "", new { @class = "text-danger", })
-                                    </label>
+                                    <h6>@Html.DisplayNameFor(x => x.TargetDate)</h6>
+                                    <input id="TargetDatePicker" type="text" class="form-control" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
@@ -75,70 +60,18 @@
                             <div class="col-md-12">
                                 <button type="submit" class="btn btn-success pull-right">Kaydet</button>
                             </div>
-                            
                         </div>
-
                     </form>
                     <!-- /form -->
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>
 <!-- /Column Center -->
 
+<script src=~/js/pages/Project/addProject.js></script>
 <script>
-
-
-    function fn() {
-        var states = [@Html.Raw(TempData["Codes"])];
-
-        // Init Typeahead
-        $('.typeahead').typeahead({
-            hint: true,
-            highlight: true,
-            minLength: 1
-        }, {
-                name: 'states',
-                displayKey: 'value',
-                source: substringMatcher(states)
-            });
-
-        $('input[name="TargetDate"]').datepicker({
-            singleDatePicker: true,
-            showDropdowns: false,
-            minYear: 1901,
-            maxYear: parseInt(moment().format('YYYY'), 10)
-        });
-    }
-
-    // Init Twitter Typeahead.js
-    var substringMatcher = function (strs) {
-        return function findMatches(q, cb) {
-            var matches, substrRegex;
-
-            matches = [];
-
-            // check if string contain "q"
-            substrRegex = new RegExp(q, 'i');
-
-            // if "q" - add to matches []
-            $.each(strs, function (i, str) {
-                if (substrRegex.test(str)) {
-                    matches.push({
-                        value: str
-                    });
-                }
-            });
-
-            cb(matches);
-        };
-    };
-
-    document.addEventListener('DOMContentLoaded', fn, false);
-
-
-
+    //Variables
+    var currentDate = '@Model.TargetDate?.ToString("MM'/'dd'/'yyyy")';
 </script>

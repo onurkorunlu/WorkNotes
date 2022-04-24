@@ -2,6 +2,7 @@
 {
     public enum ProjectType
     {
-        PROJECT, ITSM
+        PROJECT = 1,
+        ITSM = 2
     }
 }

@@ -1,0 +1,120 @@
+﻿@using WorkNotes.Entities
+@model IEnumerable<CheckIn>
+
+@{
+    string tableGuidId = Guid.NewGuid().ToString();
+}
+
+<table class="table table-condensed btn-gradient-grey" id="@tableGuidId">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(x => x.CheckinId)</th>
+            <th>@Html.DisplayNameFor(x => x.Application.Name)</th>
+            <th>@Html.DisplayNameFor(x => x.Description)</th>
+            <th>@Html.DisplayNameFor(x => x.CreateDate)</th>
+            <th>@Html.DisplayNameFor(x => x.DeployPackageId)</th>
+            <th>@Html.DisplayNameFor(x => x.IsDeployed)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Where(x => !x.IsDbMigration).OrderBy(x => x.CheckinId).ToList())
+        {
+            <tr>
+                <td>@item.CheckinId</td>
+                <td>@item.Application.Name</td>
+                <td>@item.Description</td>
+                <td>@item.CreateDate</td>
+                <td>
+                    @if (item.DeployPackageId != null)
+                    {
+                        @item.DeployPackageId
+                    }
+                </td>
+                <td>
+                    @{
+                        if (item.IsDeployed)
+                        {
+                            <i class="fa fa-check-circle" style="font-size:x-large"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-times-circle" style="font-size:x-large"></i>
+
+                        }
+                    }
+                </td>
+                <td width="15%">
+                    <button class="btn btn-info" onclick="addNewDeployment(@item.CheckinId);">
+                        <i class="fa fa-truck"></i>
+                    </button>
+                    <a class="btn btn-danger" href="@Url.Action("DeleteCheckin","Checkin",new { Id =item.Id})">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                    @if (!item.IsDeployed)
+                    {
+                        <a href="@Url.Action("DeployCheckin","Checkin",new { Id=item.Id,IsDeployed=true})" class="btn btn-success">
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("DeployCheckin","Checkin",new { Id=item.Id,IsDeployed=false})" class="btn btn-warning">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
+                    }
+
+                </td>
+            </tr>
+            <partial name="AddDeployPackage" model="item" />
+        }
+    </tbody>
+</table>
+
+
+<script>
+
+    function loaded() {
+
+        $('#@tableGuidId').dataTable({
+            "aoColumnDefs": [{
+                'bSortable': false,
+                'aTargets': [-1]
+            }],
+            "oLanguage": {
+                "oPaginate": {
+                    "sPrevious": "",
+                    "sNext": ""
+                }
+            },
+            "iDisplayLength": 25,
+            "aLengthMenu": [
+                [5, 10, 25, 50, -1],
+                [5, 10, 25, 50, "All"]
+            ],
+            "sDom": '<"dt-panelmenu clearfix"lfr>t<"dt-panelfooter clearfix"ip>',
+            "oTableTools": {
+                "sSwfPath": "assets/js/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf"
+            }
+        });
+    };
+
+    function addNewDeployment(id) {
+        $.magnificPopup.open({
+            removalDelay: 500,
+            items: {
+                src: '#addDeploymentModalForm-' + id
+            },
+            callbacks: {
+                beforeOpen: function (e) {
+                    var Animation = 'mfp-sign';
+                    this.st.mainClass = Animation;
+                }
+            },
+            midClick: true
+        });
+    };
+
+    document.addEventListener('DOMContentLoaded', loaded, false);
+
+</script>

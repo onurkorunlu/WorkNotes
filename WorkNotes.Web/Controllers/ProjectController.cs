@@ -56,9 +56,6 @@ namespace WorkNotes.Web.Controllers
 
         public ActionResult Detail(string id)
         {
-            ViewBag.Applications = new List<Application>() { new Application { Name = "Test1" }, new Application { Name = "Test2" } };
-            TempData["Codes"] = getCodes();
-
             try
             {
                 var project = AppServiceProvider.Instance.Get<IProjectService>().GetById(id);
@@ -77,36 +74,70 @@ namespace WorkNotes.Web.Controllers
             }
         }
 
+        public JsonResult GetCodes()
+        {
+            try
+            {
+                List<string> respcodes = new List<string>();
+                var codes = AppServiceProvider.Instance.Get<IProjectService>().GetAll()?.Select(x => x.Code);
+
+                if (codes != null && codes.Any())
+                {
+                    foreach (var code in codes)
+                    {
+                        var splittedCode = code.Split('-');
+                        respcodes.Add(splittedCode.FirstOrDefault() + "-");
+                    }
+                    if (respcodes.Any())
+                    {
+                        respcodes = respcodes.Distinct().ToList();
+                    }
+                }
+
+                return PrepareSuccessJsonResult(respcodes, false);
+            }
+            catch (AppException e)
+            {
+                return PrepareErrorJsonResult(e);
+            }
+            catch (Exception ex)
+            {
+                AppException appException = new(ReturnMessages.GENERIC_ERROR, ex);
+                return PrepareErrorJsonResult(appException);
+            }
+        }
+
+
         #endregion
 
         #region Add
 
         public ActionResult Add()
         {
-            TempData["Codes"] = getCodes();
             return View(new AddProjectRequestModel());
         }
 
         [HttpPost]
-        public JsonResult Add(AddProjectRequestModel model)
+        public ActionResult Add(AddProjectRequestModel model)
         {
-            TempData["Codes"] = getCodes();
 
             try
             {
                 CheckModelState(model);
                 var project = AppServiceProvider.Instance.Get<IProjectService>().Create(model);
-                return PrepareSuccessJsonResult(project, true);
+                return RedirectToAction("Detail", "Project", new { id = project.Id.ToString() });
             }
             catch (AppException e)
             {
-                return PrepareErrorJsonResult(e, true, model);
+                ShowError(e);
             }
             catch (Exception ex)
             {
                 AppException appException = new(ReturnMessages.GENERIC_ERROR, ex);
-                return PrepareErrorJsonResult(appException, true, model);
+                ShowError(appException);
             }
+
+            return View(model);
 
         }
         #endregion
@@ -115,7 +146,6 @@ namespace WorkNotes.Web.Controllers
 
         public ActionResult Update()
         {
-            TempData["Codes"] = getCodes();
             return View(new UpdateProjectRequestModel());
         }
 
@@ -182,51 +212,6 @@ namespace WorkNotes.Web.Controllers
                 return View();
             }
 
-        }
-
-        #endregion
-
-        #region Methods
-        public string getCodes()
-        {
-            StringBuilder sb = new StringBuilder();
-            try
-            {
-                List<string> respcodes = new List<string>();
-                var codes = AppServiceProvider.Instance.Get<IProjectService>().GetAll()?.Select(x => x.Code);
-
-                if (codes != null && codes.Any())
-                {
-                    foreach (var code in codes)
-                    {
-                        var splittedCode = code.Split('-');
-                        respcodes.Add(splittedCode.FirstOrDefault());
-                    }
-                    if (respcodes.Any())
-                    {
-                        foreach (var item in respcodes.Distinct())
-                        {
-                            var code = string.Concat("\'", item, "-\'");
-                            sb.Append(code);
-                            if (item != respcodes.Distinct().Last())
-                            {
-                                sb.Append(",");
-                            }
-                        }
-                    }
-                }
-            }
-            catch (AppException e)
-            {
-                ShowError(e);
-            }
-            catch (Exception ex)
-            {
-                AppException appException = new(ReturnMessages.GENERIC_ERROR, ex);
-                ShowError(appException);
-            }
-
-            return sb.ToString();
         }
 
         #endregion

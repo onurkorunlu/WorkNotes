@@ -4,10 +4,8 @@ using WorkNotes.Entities.Enums;
 
 namespace WorkNotes.Entities
 {
-    public class CheckIn
+    public class CheckIn : MongoBaseModel
     {
-        [BsonId]
-        public ObjectId Id { get; set; }
         public string CheckinId { get; set; }
         public string Description { get; set; }
         public bool IsDeployed { get; set; }

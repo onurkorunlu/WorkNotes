@@ -4536,36 +4536,6 @@ fieldset[disabled] .fc button.active {
   padding-left: 5px;
   padding-bottom: 15px;
 }
-.minimal-mp .ui-datepicker {
-  background: none;
-  margin: 0;
-  border: 0;
-}
-.minimal-mp .ui-datepicker-header {
-  display: none;
-}
-.minimal-mp .ui-datepicker td {
-  padding: 8px 5px;
-}
-.minimal-mp .ui-datepicker td span,
-.minimal-mp .ui-datepicker td a {
-  background: #e5eaee;
-  color: #2a3342;
-  line-height: 38px;
-  padding: 0;
-  text-transform: uppercase;
-  width: 100%;
-}
-.minimal-mp .ui-datepicker td:hover span,
-.minimal-mp .ui-datepicker td:hover a {
-  background: #dce3e8;
-}
-.minimal-mp .ui-datepicker td span.ui-state-highlight,
-.minimal-mp .ui-datepicker td a.ui-state-highlight,
-.minimal-mp .ui-datepicker td span.ui-state-active,
-.minimal-mp .ui-datepicker td a.ui-state-active {
-  color: #fff;
-}
 .fc-unthemed .fc-popover,
 .fc-unthemed .fc-row,
 .fc-unthemed hr,
@@ -5113,16 +5083,12 @@ fieldset[disabled] .fc button.active {
 .nano.affix.nano-dark > .nano-pane > .nano-slider {
   background: #2a3342;
 }
-body.mfp-bg-open .datepicker,
-body.mfp-bg-open .ui-datepicker,
 body.mfp-bg-open .colorpicker.dropdown-menu,
 body.mfp-bg-open .daterangepicker.dropdown-menu,
 body.mfp-bg-open .bootstrap-datetimepicker-widget {
   z-index: 9999 !important;
 }
-body.mfp-bg-open .ui-datepicker-inline {
-  z-index: inherit !important;
-}
+
 .colorpicker.dropdown-menu {
   z-index: 1025;
   padding: 6px 12px;
@@ -5137,9 +5103,7 @@ body.mfp-bg-open .ui-datepicker-inline {
   border-radius: 2px;
   border-color: 1px solid rgba(0, 0, 0, 0.1);
 }
-.datepicker {
-  padding: 6px;
-}
+
 .daterangepicker .calendar-date {
   border-radius: 2px;
 }
@@ -8596,7 +8560,6 @@ body.panel-fullscreen-active #content_wrapper {
 }
 .allcp-form.theme-success .append-picker-icon button,
 .allcp-form.theme-success .prepend-picker-icon button,
-.allcp-form.theme-success .ui-datepicker-buttonpane button,
 .allcp-form.theme-success .sp-container button,
 .allcp-form.theme-success .smart-widget .button {
   color: #fff;
@@ -8605,16 +8568,12 @@ body.panel-fullscreen-active #content_wrapper {
 }
 .allcp-form.theme-success .smart-widget .button:hover,
 .allcp-form.theme-success .sp-container button:hover,
-.allcp-form.theme-success .ui-datepicker-buttonpane button:hover,
 .allcp-form.theme-success .append-picker-icon button:hover,
 .allcp-form.theme-success .prepend-picker-icon button:hover {
   border-color: #2a3342;
   background-color: #2a3342;
 }
-.ui-datepicker-buttonpane button:active {
-  color: #fff;
-  background: #10C1B0;
-}
+
 .allcp-form .prepend-picker-icon button:disabled {
   background-color: #c2c3c4 !important;
   border-color: #c2c3c4 !important;
@@ -8799,118 +8758,8 @@ body.panel-fullscreen-active #content_wrapper {
   border-color: #9F9F9F transparent;
   border-color: #9f9f9f rgba(255, 255, 255, 0);
 }
-.ui-datepicker-calendar > thead th {
-  color: #30333a;
-}
-.ui-datepicker {
-  min-width: 270px;
-  padding: 13px 30px;
-  overflow: hidden;
-  background: #fff;
-  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-  -o-box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-  border-color: 1px solid #dddfe3;
-  color: #30333a;
-  z-index: 100 !important;
-}
-.ui-datepicker a {
-  color: #404040;
-}
-.ui-datepicker .ui-state-disabled span {
-  color: #DBDBDB;
-}
-.ui-datepicker .ui-datepicker-header {
-  background: #fff;
-  color: #30333a;
-}
-.ui-datepicker .ui-widget-header:after {
-  content: '';
-  display: block;
-  width: 200%;
-  height: 1px;
-  margin-left: -20%;
-  background-color: #eeeff1;
-}
-.ui-datepicker .ui-datepicker-header .ui-datepicker-year,
-.ui-datepicker .ui-datepicker-header .ui-datepicker-month {
-  color: #2a2f43;
-}
-.ui-datepicker .ui-datepicker-prev,
-.ui-datepicker .ui-datepicker-next {
-  color: #666;
-}
-.ui-datepicker .ui-datepicker-title {
-  color: #30333a;
-  padding-bottom: 10px;
-}
-.ui-datepicker .ui-datepicker-title select {
-  background-color: #EEE;
-  border-color: #CCC;
-}
-.ui-datepicker .ui-datepicker-title select option {
-  background: #FFF;
-}
-.ui-datepicker td span,
-.ui-datepicker td a {
-  color: #30333a;
-}
-.ui-datepicker td span:hover,
-.ui-datepicker td a:hover {
-  background: #F5F5F5;
-}
-.ui-datepicker-today a,
-.ui-datepicker-today a:hover,
-.ui-datepicker .ui-state-active,
-.ui-datepicker .ui-state-highlight {
-  color: #fff;
-  background: #CCC;
-}
-.ui-datepicker .ui-state-active {
-  background: #dddfe3;
-}
-.ui-timepicker-div .ui-widget-header {
-  padding: 0;
-}
-#ui-datepicker-div .ui-datepicker-title,
-#ui-monthpicker-div .ui-datepicker-title,
-.inline-tp .ui-datepicker .ui-datepicker-title,
-.inline-mp .ui-datepicker .ui-datepicker-title,
-.inline-dp .ui-datepicker .ui-datepicker-title,
-.inline-dtp .ui-datepicker .ui-datepicker-title {
-  margin: 0;
-  color: #30333a !important;
-  font-size: 15px;
-  font-weight: 700;
-}
-.ui-datepicker-calendar {
-  padding: 30px;
-}
-.ui-datepicker-buttonpane {
-  background: #fff;
-  padding: 22px 0 28px;
-}
-.ui-datepicker-buttonpane button {
-  border-radius: 5px;
-  min-width: initial;
-  height: initial;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 12px 35px;
-}
-.ui-datepicker-buttonpane button:hover,
-.ui-datepicker-buttonpane button:active {
-  background: #2a3342;
-}
-.ui-datepicker.ui-datepicker-multi {
-  padding-right: 10px;
-  padding-left: 10px;
-}
-.ui-datepicker-multi-3 .ui-datepicker-group + .ui-datepicker-group {
-  border-left: 1px solid #e5eaee;
-}
+
+
 .ui-timepicker-div .ui-widget-header {
   background: #fff;
   color: #a9acbd;
@@ -9345,22 +9194,7 @@ body.panel-fullscreen-active #content_wrapper {
 .allcp-form.theme-alert .select > select:focus + .arrow {
   color: #ffbc0b;
 }
-.allcp-form.theme-alert .ui-datepicker .ui-datepicker-prev,
-.allcp-form.theme-alert .ui-datepicker .ui-datepicker-next,
-.allcp-form.theme-alert .ui-datepicker .ui-datepicker-title {
-  color: #ffbc0b;
-}
-.allcp-form.theme-alert .ui-datepicker-today a,
-.allcp-form.theme-alert .ui-datepicker-calendar a:hover,
-.allcp-form.theme-alert .ui-datepicker-today a:hover,
-.allcp-form.theme-alert .ui-datepicker .ui-state-highlight {
-  background-color: #ffffff;
-  color: #ffbc0b;
-}
-.allcp-form.theme-alert .ui-datepicker .ui-state-active {
-  background-color: #ffffff;
-  color: #ffbc0b;
-}
+
 .allcp-form.theme-alert .rating:hover .rating-star:hover,
 .allcp-form.theme-alert .rating:hover .rating-star:hover ~ .rating-star,
 .allcp-form.theme-alert .rating-input:checked ~ .rating-star {
@@ -9369,15 +9203,6 @@ body.panel-fullscreen-active #content_wrapper {
 .allcp-form.theme-alert .rating-star,
 .allcp-form.theme-alert .rating:hover .rating-star {
   color: #b9bbc5;
-}
-.allcp-form.theme-alert .ui-datepicker .ui-timepicker-div .ui-slider .ui-slider-handle.ui-state-active {
-  background: #FFF;
-}
-.allcp-form.theme-alert .ui-datepicker .ui-timepicker-div .ui-slider .ui-slider-handle {
-  border-color: #ffbc0b;
-}
-.allcp-form.theme-alert .ui-datepicker .ui-timepicker-div .ui-slider .ui-slider-handle:before {
-  background-color: #ffbc0b;
 }
 .allcp-form.theme-alert .wizard .steps li a,
 .allcp-form.theme-alert .wizard .actions li a {
@@ -9513,22 +9338,7 @@ body.panel-fullscreen-active #content_wrapper {
 .allcp-form.theme-danger .select > select:focus + .arrow {
   color: #ee5744;
 }
-.allcp-form.theme-danger .ui-datepicker .ui-datepicker-prev,
-.allcp-form.theme-danger .ui-datepicker .ui-datepicker-next,
-.allcp-form.theme-danger .ui-datepicker .ui-datepicker-title {
-  color: #ee5744;
-}
-.allcp-form.theme-danger .ui-datepicker-today a,
-.allcp-form.theme-danger .ui-datepicker-calendar a:hover,
-.allcp-form.theme-danger .ui-datepicker-today a:hover,
-.allcp-form.theme-danger .ui-datepicker .ui-state-highlight {
-  background-color: #ffffff;
-  color: #ee5744;
-}
-.allcp-form.theme-danger .ui-datepicker .ui-state-active {
-  background-color: #ffffff;
-  color: #ee5744;
-}
+
 .allcp-form.theme-danger .rating:hover .rating-star:hover,
 .allcp-form.theme-danger .rating:hover .rating-star:hover ~ .rating-star,
 .allcp-form.theme-danger .rating-input:checked ~ .rating-star {
@@ -9538,15 +9348,7 @@ body.panel-fullscreen-active #content_wrapper {
 .allcp-form.theme-danger .rating:hover .rating-star {
   color: #b9bbc5;
 }
-.allcp-form.theme-danger .ui-datepicker .ui-timepicker-div .ui-slider .ui-slider-handle.ui-state-active {
-  background: #FFF;
-}
-.allcp-form.theme-danger .ui-datepicker .ui-timepicker-div .ui-slider .ui-slider-handle {
-  border-color: #ee5744;
-}
-.allcp-form.theme-danger .ui-datepicker .ui-timepicker-div .ui-slider .ui-slider-handle:before {
-  background-color: #ee5744;
-}
+
 .allcp-form.theme-danger .wizard .steps li a,
 .allcp-form.theme-danger .wizard .actions li a {
   background-color: #ee5744;
@@ -9681,22 +9483,7 @@ body.panel-fullscreen-active #content_wrapper {
 .allcp-form.theme-dark .select > select:focus + .arrow {
   color: #2a2f43;
 }
-.allcp-form.theme-dark .ui-datepicker .ui-datepicker-prev,
-.allcp-form.theme-dark .ui-datepicker .ui-datepicker-next,
-.allcp-form.theme-dark .ui-datepicker .ui-datepicker-title {
-  color: #2a2f43;
-}
-.allcp-form.theme-dark .ui-datepicker-today a,
-.allcp-form.theme-dark .ui-datepicker-calendar a:hover,
-.allcp-form.theme-dark .ui-datepicker-today a:hover,
-.allcp-form.theme-dark .ui-datepicker .ui-state-highlight {
-  background-color: #ffffff;
-  color: #2a2f43;
-}
-.allcp-form.theme-dark .ui-datepicker .ui-state-active {
-  background-color: #ffffff;
-  color: #2a2f43;
-}
+
 .allcp-form.theme-dark .rating:hover .rating-star:hover,
 .allcp-form.theme-dark .rating:hover .rating-star:hover ~ .rating-star,
 .allcp-form.theme-dark .rating-input:checked ~ .rating-star {
@@ -9849,22 +9636,6 @@ body.panel-fullscreen-active #content_wrapper {
   border-color: #55d5b5;
 }
 .allcp-form.theme-info .select > select:focus + .arrow {
-  color: #55d5b5;
-}
-.allcp-form.theme-info .ui-datepicker .ui-datepicker-prev,
-.allcp-form.theme-info .ui-datepicker .ui-datepicker-next,
-.allcp-form.theme-info .ui-datepicker .ui-datepicker-title {
-  color: #55d5b5;
-}
-.allcp-form.theme-info .ui-datepicker-today a,
-.allcp-form.theme-info .ui-datepicker-calendar a:hover,
-.allcp-form.theme-info .ui-datepicker-today a:hover,
-.allcp-form.theme-info .ui-datepicker .ui-state-highlight {
-  background-color: #ffffff;
-  color: #55d5b5;
-}
-.allcp-form.theme-info .ui-datepicker .ui-state-active {
-  background-color: #ffffff;
   color: #55d5b5;
 }
 .allcp-form.theme-info .rating:hover .rating-star:hover,
@@ -10028,22 +9799,7 @@ body.panel-fullscreen-active #content_wrapper {
 .allcp-form.theme-primary .select > select:focus + .arrow {
   color: #48b0f7;
 }
-.allcp-form.theme-primary .ui-datepicker .ui-datepicker-prev,
-.allcp-form.theme-primary .ui-datepicker .ui-datepicker-next,
-.allcp-form.theme-primary .ui-datepicker .ui-datepicker-title {
-  color: #48b0f7;
-}
-.allcp-form.theme-primary .ui-datepicker-today a,
-.allcp-form.theme-primary .ui-datepicker-calendar a:hover,
-.allcp-form.theme-primary .ui-datepicker-today a:hover,
-.allcp-form.theme-primary .ui-datepicker .ui-state-highlight {
-  background-color: #ffffff;
-  color: #48b0f7;
-}
-.allcp-form.theme-primary .ui-datepicker .ui-state-active {
-  background-color: #ffffff;
-  color: #48b0f7;
-}
+
 .allcp-form.theme-primary .rating:hover .rating-star:hover,
 .allcp-form.theme-primary .rating:hover .rating-star:hover ~ .rating-star,
 .allcp-form.theme-primary .rating-input:checked ~ .rating-star {
@@ -10052,15 +9808,6 @@ body.panel-fullscreen-active #content_wrapper {
 .allcp-form.theme-primary .rating-star,
 .allcp-form.theme-primary .rating:hover .rating-star {
   color: #48b0f7;
-}
-.allcp-form.theme-primary .ui-datepicker .ui-timepicker-div .ui-slider .ui-slider-handle.ui-state-active {
-  background: #FFF;
-}
-.allcp-form.theme-primary .ui-datepicker .ui-timepicker-div .ui-slider .ui-slider-handle {
-  border-color: #48b0f7;
-}
-.allcp-form.theme-primary .ui-datepicker .ui-timepicker-div .ui-slider .ui-slider-handle:before {
-  background-color: #48b0f7;
 }
 .allcp-form.theme-primary .wizard .steps li a,
 .allcp-form.theme-primary .wizard .actions li a {
@@ -10197,22 +9944,7 @@ body.panel-fullscreen-active #content_wrapper {
 .allcp-form.theme-success .select > select:focus + .arrow {
   color: #929599;
 }
-.allcp-form.theme-success .ui-datepicker .ui-datepicker-prev,
-.allcp-form.theme-success .ui-datepicker .ui-datepicker-next,
-.allcp-form.theme-success .ui-datepicker .ui-datepicker-title {
-  color: #47D178;
-}
-.allcp-form.theme-success .ui-datepicker-today a,
-.allcp-form.theme-success .ui-datepicker-calendar a:hover,
-.allcp-form.theme-success .ui-datepicker-today a:hover,
-.allcp-form.theme-success .ui-datepicker .ui-state-highlight {
-  background-color: #ffffff;
-  color: #47D178;
-}
-.allcp-form.theme-success .ui-datepicker .ui-state-active {
-  background-color: #ffffff;
-  color: #47D178;
-}
+
 .allcp-form.theme-success .rating:hover .rating-star:hover,
 .allcp-form.theme-success .rating:hover .rating-star:hover ~ .rating-star,
 .allcp-form.theme-success .rating-input:checked ~ .rating-star {
@@ -10366,22 +10098,7 @@ body.panel-fullscreen-active #content_wrapper {
 .allcp-form.theme-system .select > select:focus + .arrow {
   color: #5a5386;
 }
-.allcp-form.theme-system .ui-datepicker .ui-datepicker-prev,
-.allcp-form.theme-system .ui-datepicker .ui-datepicker-next,
-.allcp-form.theme-system .ui-datepicker .ui-datepicker-title {
-  color: #5a5386;
-}
-.allcp-form.theme-system .ui-datepicker-today a,
-.allcp-form.theme-system .ui-datepicker-calendar a:hover,
-.allcp-form.theme-system .ui-datepicker-today a:hover,
-.allcp-form.theme-system .ui-datepicker .ui-state-highlight {
-  background-color: #ffffff;
-  color: #5a5386;
-}
-.allcp-form.theme-system .ui-datepicker .ui-state-active {
-  background-color: #ffffff;
-  color: #5a5386;
-}
+
 .allcp-form.theme-system .rating:hover .rating-star:hover,
 .allcp-form.theme-system .rating:hover .rating-star:hover ~ .rating-star,
 .allcp-form.theme-system .rating-input:checked ~ .rating-star {
@@ -10535,22 +10252,7 @@ body.panel-fullscreen-active #content_wrapper {
 .allcp-form.theme-warning .select > select:focus + .arrow {
   color: #ff7022;
 }
-.allcp-form.theme-warning .ui-datepicker .ui-datepicker-prev,
-.allcp-form.theme-warning .ui-datepicker .ui-datepicker-next,
-.allcp-form.theme-warning .ui-datepicker .ui-datepicker-title {
-  color: #ff7022;
-}
-.allcp-form.theme-warning .ui-datepicker-today a,
-.allcp-form.theme-warning .ui-datepicker-calendar a:hover,
-.allcp-form.theme-warning .ui-datepicker-today a:hover,
-.allcp-form.theme-warning .ui-datepicker .ui-state-highlight {
-  background-color: #ffffff;
-  color: #ff7022;
-}
-.allcp-form.theme-warning .ui-datepicker .ui-state-active {
-  background-color: #ffffff;
-  color: #ff7022;
-}
+
 .allcp-form.theme-warning .rating:hover .rating-star:hover,
 .allcp-form.theme-warning .rating:hover .rating-star:hover ~ .rating-star,
 .allcp-form.theme-warning .rating-input:checked ~ .rating-star {
@@ -26128,22 +25830,7 @@ body.basic-gallery .fail .filter-error-message {
     width: 48%;
   }
 }
-body.basic-calendar .chute-left .ui-datepicker {
-  background: none;
-  margin: 0;
-  border: 0;
-}
-body.basic-calendar .chute-left .ui-datepicker-header {
-  display: none;
-}
-body.basic-calendar .chute-left .ui-datepicker td {
-  padding: 8px 5px;
-}
-body.basic-calendar .chute-left .ui-datepicker td span,
-body.basic-calendar .chute-left .ui-datepicker td a {
-  background: #DDD;
-  padding: .50em .20em;
-}
+
 body.basic-calendar .chute-left #compose-event-btn {
   cursor: pointer;
   position: relative;
@@ -33255,11 +32942,7 @@ body.basic-timeline .panel-clone {
     margin-right: 0 !important;
   }
 }
-@media (width: 1440px) {
-  .ui-datepicker {
-    padding: 20px 10px 5px;
-  }
-}
+
 @media (max-width: 1440px) {
   #sidebar_right.nano > .nano-pane {
     width: 10px;
@@ -33282,16 +32965,6 @@ body.basic-timeline .panel-clone {
   }
 }
 @media (min-width: 1300px) and (max-width: 1400px) {
-  .ui-datepicker {
-    padding: 20px 5px 5px;
-  }
-  .ui-datepicker td {
-    padding: 0;
-  }
-  .ui-datepicker .ui-datepicker-header .ui-datepicker-year,
-  .ui-datepicker .ui-datepicker-header .ui-datepicker-month {
-    font: 600 14px/20px 'Oxygen', Helvetica, Arial, sans-serif;
-  }
   .nav.chart-legend > li > a {
     font-size: 10px;
     padding: 0;
@@ -33600,9 +33273,7 @@ body.basic-timeline .panel-clone {
     width: initial;
     height: initial;
   }
-  .bootstrap-datetimepicker-widget .datepicker {
-    font-size: 12px;
-  }
+
   .bootstrap-datetimepicker-widget th.picker-switch {
     width: initial;
     font-weight: 500;
@@ -34466,13 +34137,7 @@ body.basic-timeline .panel-clone {
   .panel-tabs > li > a {
     padding: 4px 7px 6px;
   }
-  .ui-datepicker {
-    padding: 20px 5px 5px;
-    min-width: initial;
-  }
-  .ui-datepicker td {
-    padding: 0;
-  }
+
   #content .panel-heading .panel-title + .nav.panel-tabs {
     bottom: 0;
   }
@@ -34754,9 +34419,7 @@ body.basic-timeline .panel-clone {
     width: initial;
     height: initial;
   }
-  .bootstrap-datetimepicker-widget .datepicker {
-    font-size: 12px;
-  }
+
   .bootstrap-datetimepicker-widget th.picker-switch {
     width: initial;
     font-weight: 500;

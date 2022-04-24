@@ -1,0 +1,39 @@
+﻿@using WorkNotes.Models.RequestModel
+@model AddNoteRequestModel
+
+<!-- AllCP Form Popup -->
+<div id="addNoteModalForm" class=" popup-basic allcp-form mfp-with-anim mfp-hide" >
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title">
+                <i class="fa fa-rocket"></i>Yeni Not Ekle
+            </span>
+        </div>
+        <!-- /Panel Heading -->
+
+        <form method="post" action="@Url.Action("AddNote","Note",null)">
+            @Html.HiddenFor(x => x.ProjectId)
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section">
+                        <h6><i class="fa fa-file-alt"></i> @Html.DisplayNameFor(x => x.Text)</h6>
+                        <label class="field">
+                            @Html.TextAreaFor(x => x.Text, new { @Class = "form-control typeahead" ,@rows=10})
+                            @Html.ValidationMessageFor(x => x.Text, "", new { @class = "text-danger", })
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success pull-right" style="margin:10px">Kaydet</button>
+                </div>
+            </div>
+            <!-- /Panel Footer -->
+        </form>
+    </div>
+    <!-- /Panel -->
+</div>
+<!-- /Spec Form -->

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace WorkNotes.Common
+namespace WorkNotes.Core
 {
     public class MyJsonResult
     {

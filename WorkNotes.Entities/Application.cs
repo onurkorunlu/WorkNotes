@@ -1,6 +1,6 @@
 ﻿namespace WorkNotes.Entities
 {
-    public class Application
+    public class Application : MongoBaseModel
     {
         public string Name { get; set; }
 

@@ -24,9 +24,9 @@
             </thead>
             <tbody>
 
-                @if (Model != null && Model.Any())
+                @if (Model.Any())
                 {
-                    foreach (var project in Model?.OrderByDescending(x => x.CreateDate).ToList())
+                    foreach (var project in Model.OrderByDescending(x => x.CreateDate).ToList())
                     {
                         var bgcolor = string.Empty;
                         switch (project.Status)
@@ -66,7 +66,7 @@
 
                         <tr>
                             <td>
-                                <a href="@Url.Action("Detail","Project",new { Id=project.Id.ToString()})" class="btn btn-info">
+                                <a href="@Url.Action("Detail","Project",new { Id=project.Id})" class="btn btn-info">
                                     <i class="fa fa-info"></i>
                                 </a>
                             </td>
@@ -77,7 +77,6 @@
                             <td style="color:white;background-color:@bgcolor">
                                 <b>
                                     @project.Status
-
                                 </b>
                             </td>
 

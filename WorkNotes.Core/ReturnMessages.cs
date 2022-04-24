@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace WorkNotes.Common
+namespace WorkNotes.Core
 {
     public static class ReturnMessages
     {
 
         public static KeyValuePair<string, string> SUCCESSFUL = new KeyValuePair<string, string>("000", "İşlem başarılı.");
         public static KeyValuePair<string, string> GENERIC_ERROR = new KeyValuePair<string, string>("001", "Beklenmeyen bir hata oluştu.");
-        public static KeyValuePair<string, string> MODEL_VALIDATION_ERROR = new KeyValuePair<string, string>("002", "Girilen değerler hatalı, lütfen kontrol ederek tekrar giriniz. </br> {0}.");
+        public static KeyValuePair<string, string> MODEL_VALIDATION_ERROR = new KeyValuePair<string, string>("002", "Girilen değerler hatalı, lütfen kontrol ederek tekrar giriniz. </br></br> {0}.");
 
         public static KeyValuePair<string, string> CREATE_ERROR = new KeyValuePair<string, string>("100", "Kayıt işlemi yapılırken bir hata oluştu.");
         public static KeyValuePair<string, string> UPDATE_ERROR = new KeyValuePair<string, string>("101", "Güncelleme işlemi yapılırken bir hata oluştu.");

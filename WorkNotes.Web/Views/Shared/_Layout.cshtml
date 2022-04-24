@@ -1,50 +1,4 @@
-﻿@{
-    bool IsHomeActive = (bool?)TempData["HomeActive"] ?? false;
-    bool IsProjectActive = (bool?)TempData["ProjectActive"] ?? false;
-    bool IsCheckinsActive = (bool?)TempData["CheckinActive"] ?? false;
-    bool IsNotesActive = (bool?)TempData["NoteActive"] ?? false;
-    bool IsLogsActive = (bool?)TempData["LogsActive"] ?? false;
-    bool IsItsmActive = (bool?)TempData["ItsmActive"] ?? false;
-    bool IsCheckinApplicationActive = (bool?)TempData["ApplicationCheckinActive"] ?? false;
-
-    string HomeActive = string.Empty;
-    string ProjectActive = string.Empty;
-    string CheckinActive = string.Empty;
-    string NoteActive = string.Empty;
-    string LogsActive = string.Empty;
-    string ItsmActive = string.Empty;
-    string CheckinApplicationActive = string.Empty;
-
-    if (IsHomeActive)
-    {
-        HomeActive = "active";
-    }
-    else if (IsProjectActive)
-    {
-        ProjectActive = "active";
-    }
-    else if (IsCheckinsActive)
-    {
-        CheckinActive = "active";
-    }
-    else if (IsNotesActive)
-    {
-        NoteActive = "active";
-    }
-    else if (IsLogsActive)
-    {
-        LogsActive = "active";
-    }
-    else if (IsItsmActive)
-    {
-        ItsmActive = "active";
-    }
-    else if (IsCheckinApplicationActive)
-    {
-        CheckinApplicationActive = "active";
-    }
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <!-- Meta and Title -->
@@ -70,8 +24,6 @@
     <link rel="stylesheet" type="text/css" href="/js/plugins/datatables/media/css/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/js/plugins/datatables/extensions/Editor/css/dataTables.editor.css">
     <link rel="stylesheet" type="text/css" href="/js/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css">
-    <!-- Daterange CSS -->
-    <link rel="stylesheet" type="text/css" href="/js/plugins/daterange/daterangepicker.css">
     <!-- CSS - allcp forms -->
     <link rel="stylesheet" type="text/css" href="/css/forms.css">
     <!-- mCustomScrollbar -->
@@ -82,9 +34,16 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <!-- Notification -->
     <link rel="stylesheet" type="text/css" href="/vendors/notification/snackbar.min.css">
+    <!-- Datepickler -->
+    <link rel="stylesheet" type="text/css" href="/vendors/datepicker/css/bootstrap-datepicker.min.css">
 
 </head>
 <body class="sales-stats-page sb-top sb-top-lg">
+
+      <!-- jQuery -->
+    <script src="/js/jquery/jquery-1.12.3.min.js"></script>
+    <script src="/js/jquery/jquery_ui/jquery-ui.min.js"></script>
+
     <!-- Body Wrap -->
     <div id="main">
         <!-- Main Wrapper -->
@@ -96,43 +55,43 @@
 
                     <div class="content-left">
                         <ul class="nav nav-content">
-                            <li class="@HomeActive">
+                            <li class="active">
                                 <a href="@Url.Action("Index","Home")">
                                     <i class="fa fa-clock-o"></i>
                                     <span>Güncel Projeler</span>
                                 </a>
                             </li>
-                            <li class="@ProjectActive">
+                            <li class="">
                                 <a href="@Url.Action("Index","Project")">
                                     <i class="fa fa-folder"></i>
                                     <span>Tüm Projeler</span>
                                 </a>
                             </li>
-                            <li class="@ItsmActive">
+                            <li class="">
                                 <a href="@Url.Action("ITSMList","Project")">
                                     <i class="fa fa-warning"></i>
                                     <span>ITSM Kayıtları</span>
                                 </a>
                             </li>
-                            <li class="@CheckinActive">
+                            <li class="">
                                 <a href="@Url.Action("Index","Checkin")">
                                     <i class="fa fa-code"></i>
                                     <span>Checkin Geçmişi</span>
                                 </a>
                             </li>
-                            <li class="@NoteActive">
+                            <li class="">
                                 <a href="@Url.Action("Index","Note")">
                                     <i class="fa fa-sticky-note"></i>
                                     <span>Notlar</span>
                                 </a>
                             </li>
-                            <li class="@LogsActive">
+                            <li class="">
                                 <a href="@Url.Action("Index","LogMonitoring")">
                                     <i class="fa fa-eye"></i>
                                     <span>Log İzleme</span>
                                 </a>
                             </li>
-                            <li class="@CheckinApplicationActive">
+                            <li class="">
                                 <a href="@Url.Action("Index","ApplicationCheckin")">
                                     <i class="fa fa-clone"></i>
                                     <span>Uygulama Tanımı</span>
@@ -160,9 +119,7 @@
     </div>
     <!-- /Body Wrap  -->
     <!-- Scripts -->
-    <!-- jQuery -->
-    <script src="/js/jquery/jquery-1.12.3.min.js"></script>
-    <script src="/js/jquery/jquery_ui/jquery-ui.min.js"></script>
+  
     <!-- AnimatedSVGIcons -->
     <script src="/fonts/animatedsvgicons/js/snap.svg-min.js"></script>
     <script src="/fonts/animatedsvgicons/js/svgicons-config.js"></script>
@@ -178,7 +135,6 @@
     <!-- Date/Month - Pickers -->
     <script src="/js/plugins/globalize/globalize.min.js"></script>
     <script src="/js/plugins/moment/moment.min.js"></script>
-    <script src="/js/plugins/datepicker/js/bootstrap-datetimepicker.min.js"></script>
     <!-- Magnific Popup Plugin -->
     <script src="/js/plugins/magnific/jquery.magnific-popup.js"></script>
     <!-- FullCalendar Plugin -->
@@ -202,8 +158,12 @@
     <script src="/js/utility/utility.js"></script>
     <!-- Notification-->
     <script src="/vendors/notification/snackbar.min.js"></script>
+    <!-- Datepicker-->
+    <script src="/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="/vendors/datepicker/locales/bootstrap-datepicker.tr.min.js"></script>
     <!-- Site Main-->
     <script src="/js/main.js"></script>
+    <script src="/js/pages/Main/Main.js"></script>
     <!-- /Scripts -->
     @if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
     {

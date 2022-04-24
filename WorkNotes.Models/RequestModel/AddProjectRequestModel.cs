@@ -23,6 +23,8 @@ namespace WorkNotes.Models.RequestModel
         public string Description { get; set; }
 
         [DisplayName("Hedeflenen Bitiş Tarihi")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd MMMM yyyy}")]
         public DateTime? TargetDate { get; set; }
 
         [DisplayName("Proje Tipi")]

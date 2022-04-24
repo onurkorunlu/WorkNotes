@@ -1,0 +1,445 @@
+﻿@using WorkNotes.Entities
+@using WorkNotes.Entities.Enums
+@using WorkNotes.Models.RequestModel
+@model Project
+@{
+    Enviroment env = Enviroment.DEV;
+    if (Model.Status == ProjectStatus.UAT)
+    {
+        env = Enviroment.UAT;
+    }
+    else if (Model.Status == ProjectStatus.PREPROD)
+    {
+        env = Enviroment.PREPROD;
+    }
+}
+<!-- Column Center -->
+<div class="chute chute-center">
+
+    <div class="mw1000 center-block">
+
+        <!-- Spec Form -->
+        <div class="allcp-form">
+            <div class="panel">
+                <div class="panel-heading pbn">
+                    <h6 class="panel-title pln ptn" style="font-size:large;text-decoration:underline">@Model.Code - @Model.Title</h6>
+                    <button id="btnAddCheckin" class="btn btn-system btn-xs pull-right" onclick="addNewCheckin()" data-effect="mfp-sign" style="margin:1px">Check In Ekle</button>
+                    <button id="btnAddNote" class="btn btn-alert btn-xs pull-right" onclick="addNewNote()" data-effect="mfp-sign" style="margin:1px">Not Ekle</button>
+                    <button id="btnAddDefinition" class="btn btn-gradient-grey btn-xs pull-right" onclick="addNewDefinition()" data-effect="mfp-sign" style="margin:1px">Tanım Ekle</button>
+                    <br />
+                    <br />
+                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.DEV,ProjectId=Model.Id })" type="button" class="btn btn-danger btn-xs">
+                        <i class="far fa-keyboard"></i>&nbsp; DEV
+                    </a>
+                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.RFQ,ProjectId=Model.Id })" type="button" class="btn btn-dark btn-xs">
+                        <i class="far fa-keyboard"></i>&nbsp; READYFORQA
+                    </a>
+                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.UAT,ProjectId=Model.Id })" type="button" class="btn bg-warning btn-xs">
+                        <i class="fas fa-vial"></i>&nbsp; UAT
+                    </a>
+                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.PREPROD,ProjectId=Model.Id })" type="button" class="btn bg-primary btn-xs" style="color:white">
+                        <i class="fas fa-check"></i>&nbsp; PREPROD
+                    </a>
+                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.PROD,ProjectId=Model.Id })" type="button" class="btn btn-info btn-xs">
+                        <i class="fa fa-check-double"></i>&nbsp; PROD
+                    </a>
+                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.DONE,ProjectId=Model.Id })" type="button" class="btn bg-success btn-xs" style="color:white">
+                        <i class="fa fa-check-circle"></i>&nbsp; DONE
+                    </a>
+                    <text>
+                        <i class="fa fa-slash"></i>&nbsp;
+                    </text>
+                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.PENDING,ProjectId=Model.Id })" type="button" class="btn btn-xs" style="background-color: #9e9e9e52;color: #607D8B;">
+                        <i class="fa fa-clock"></i>&nbsp; Beklemede
+                    </a>
+                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.CANCELLED,ProjectId=Model.Id })" type="button" class="btn btn-xs" style="background-color: #ddd;color: red;">
+                        <i class="fa fa-exclamation"></i>&nbsp; İptal
+                    </a>
+
+                    <div class="progress mt10">
+                        @if (Model.Status == ProjectStatus.DEV || Model.Status == ProjectStatus.RFQ)
+                        {
+                            <div class="progress-bar progress-bar-danger progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;padding: 3px;">
+                                DEV
+                            </div>
+                        }
+                        else if (Model.Status == ProjectStatus.UAT)
+                        {
+                            <div class="progress-bar progress-bar-warning progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;padding: 3px;">
+                                UAT
+                            </div>
+                        }
+                        else if (Model.Status == ProjectStatus.PREPROD)
+                        {
+                            <div class="progress-bar progress-bar-info progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 75%;padding: 3px;">
+                                PREPROD
+                            </div>
+                        }
+                        else if (Model.Status == ProjectStatus.PROD)
+                        {
+                            <div class="progress-bar progress-bar-success progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;padding: 3px;">
+                                PROD
+                            </div>
+                        }
+                        else if (Model.Status == ProjectStatus.DONE)
+                        {
+                            <div class="progress-bar progress-bar-success progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;padding: 3px;">
+                                Tamamlandı
+                            </div>
+                        }
+                        else if (Model.Status == ProjectStatus.PENDING)
+                        {
+                            <div class="progress-bar progress-bar-default progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;padding: 3px;">
+                                Beklemede
+                            </div>
+                        }
+                        else if (Model.Status == ProjectStatus.CANCELLED)
+                        {
+                            <div class="progress-bar progress-bar-dark progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;padding: 3px;">
+                                İptal
+                            </div>
+                        }
+                    </div>
+
+                    <hr />
+                </div>
+                <div class="panel-body pn">
+                    <form method="post" action="@Url.Action("Update","Project",null)" id="form-ui">
+                        @Html.HiddenFor(x => x.Id)
+                        <!-- Basic -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="section">
+                                    <h6>@Html.DisplayNameFor(x => x.Code)</h6>
+                                    @Html.TextBoxFor(x => x.Code, new { @Class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.Code, "", new { @class = "text-danger", })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="section">
+                                    <h6>@Html.DisplayNameFor(x => x.Title)</h6>
+                                    @Html.TextBoxFor(x => x.Title, new { @Class = "form-control" })
+                                    @Html.ValidationMessageFor(x => x.Title, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="section">
+                                    <h6>@Html.DisplayNameFor(x => x.TargetDate)</h6>
+
+                                    @if (Model.TargetDate.HasValue)
+                                    {
+                                        @Html.TextBoxFor(x => x.TargetDate, new { @Class = "form-control", @type = "date", Value = Model.TargetDate.Value.ToString("dd MMMM yyyy") })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(x => x.TargetDate, new { @Class = "form-control", @type = "date" })
+                                    }
+
+                                    @Html.ValidationMessageFor(x => x.TargetDate, "", new { @class = "text-danger", })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="section">
+                                    <h6>@Html.DisplayNameFor(x => x.Description)</h6>
+                                    @Html.TextAreaFor(x => x.Description, new { @onkeyup = "textAreaAdjust(this)", @style = "overflow:hidden;width: 100%;border-color:lightgray;padding:10px;border-radius:5px;color:dimgray;max-width:100%" })
+                                    @Html.ValidationMessageFor(x => x.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                @Html.ActionLink("Projeyi Sil", "Delete", new { projectId = Model.Id }, new { Class = "btn btn-danger" })
+
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-info pull-right">Güncelle</button>
+                            </div>
+                        </div>
+
+                    </form>
+                    <!-- /form -->
+                </div>
+            </div>
+
+            @if (Model.CheckIns != null && Model.CheckIns.Any())
+            {
+                if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.DEV).Any())
+                {
+
+                    string aClass = "";
+                    string divClass = "collapse in";
+                    string divHeigt = "auto";
+                    if (Model.Status != ProjectStatus.DEV && Model.Status != ProjectStatus.RFQ)
+                    {
+                        aClass = "collapsed";
+                        divClass = "collapse";
+                        divHeigt = "0px";
+                    }
+
+                    <div class="bs-component">
+                        <div class="panel-group accordion" id="accordion">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle accordion-icon link-unstyled @aClass" data-toggle="collapse" data-parent="#accordion" href="#DevPanel">
+                                        DEV - Changesets
+                                    </a>
+                                </div>
+
+                                <div id="DevPanel" class="panel-collapse @divClass" style="height: @divHeigt;">
+                                    <div class="panel-body mt45">
+                                        <div class="table-responsive">
+                                            <div class="bs-component">
+                                                <partial name="ListCheckIns" model="Model.CheckIns.Where(x => x.Enviroment == Enviroment.DEV).ToList()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+                if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.UAT).Any())
+                {
+
+                    string aClass = "";
+                    string divClass = "collapse in";
+                    string divHeigt = "auto";
+                    if (Model.Status != ProjectStatus.UAT)
+                    {
+                        aClass = "collapsed";
+                        divClass = "collapse";
+                        divHeigt = "0px";
+                    }
+
+                    <div class="bs-component">
+                        <div class="panel-group accordion" id="accordion">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle accordion-icon link-unstyled @aClass" data-toggle="collapse" data-parent="#accordion" href="#UatPanel">
+                                        UAT - Changesets
+                                    </a>
+                                </div>
+
+                                <div id="UatPanel" class="panel-collapse @divClass" style="height: @divHeigt;">
+                                    <div class="panel-body mt45">
+                                        <div class="table-responsive">
+                                            <div class="bs-component">
+                                                <partial name="ListCheckIns" model="Model.CheckIns.Where(x => x.Enviroment == Enviroment.UAT).ToList()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+                if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.PREPROD).Any())
+                {
+                    string aClass = "";
+                    string divClass = "collapse in";
+                    string divHeigt = "auto";
+                    if (Model.Status != ProjectStatus.PREPROD && Model.Status != ProjectStatus.PROD && Model.Status != ProjectStatus.DONE)
+                    {
+                        aClass = "collapsed";
+                        divClass = "collapse";
+                        divHeigt = "0px";
+                    }
+                    <div class="bs-component">
+                        <div class="panel-group accordion" id="accordion">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <a class="accordion-toggle accordion-icon link-unstyled @aClass" data-toggle="collapse" data-parent="#accordion" href="#PreprodPanel">
+                                        PREPROD - Changesets
+                                    </a>
+                                </div>
+
+                                <div id="PreprodPanel" class="panel-collapse @divClass" style="height: @divHeigt;">
+                                    <div class="panel-body mt45">
+                                        <div class="table-responsive">
+                                            <div class="bs-component">
+                                                <partial name="ListCheckIns" model="Model.CheckIns.Where(x => x.Enviroment == Enviroment.PREPROD).ToList()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+
+            @if (Model.CheckIns.Any(x => x.IsDbMigration))
+            {
+
+                string aClass = "";
+                string divClass = "collapse in";
+                string divHeigt = "auto";
+
+                <div class="bs-component">
+                    <div class="panel-group accordion" id="accordion">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle accordion-icon link-unstyled @aClass" data-toggle="collapse" data-parent="#accordion" href="#DefinitionPanel">
+                                    Tanımlar
+                                </a>
+                            </div>
+
+                            <div id="DefinitionPanel" class="panel-collapse @divClass" style="height: @divHeigt;">
+                                <div class="panel-body mt45">
+                                    <div class="table-responsive">
+                                        <div class="bs-component">
+                                            <partial name="ListDefinitions" model="Model.CheckIns.Where(x => x.IsDbMigration).ToList()" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+            @if (Model.Notes != null && Model.Notes.Any())
+            {
+
+                <div class="bs-component">
+                    <div class="panel-group accordion" id="accordion">
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <a class="accordion-toggle accordion-icon link-unstyled collapsed" data-toggle="collapse" data-parent="#accordion" href="#NotePanel">
+                                    Proje Notları
+                                </a>
+                            </div>
+                            <div id="NotePanel" class="panel-collapse collapse" style="height: 0px;">
+                                <div class="panel-body mt45">
+                                    <partial name="_ListNotes" model="Model.Notes.ToList()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>
+<!-- /Column Center -->
+
+<script>
+
+
+    function fn() {
+        var states = [@Html.Raw(TempData["Codes"])];
+
+        // Init Typeahead
+        $('.typeahead').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        }, {
+                name: 'states',
+                displayKey: 'value',
+                source: substringMatcher(states)
+            });
+
+        textAreaAdjust(document.getElementById('Description'));
+    }
+
+    // Init Twitter Typeahead.js
+    var substringMatcher = function (strs) {
+        return function findMatches(q, cb) {
+            var matches, substrRegex;
+
+            matches = [];
+
+            // check if string contain "q"
+            substrRegex = new RegExp(q, 'i');
+
+            // if "q" - add to matches []
+            $.each(strs, function (i, str) {
+                if (substrRegex.test(str)) {
+                    matches.push({
+                        value: str
+                    });
+                }
+            });
+
+            cb(matches);
+        };
+
+    };
+
+
+
+    document.addEventListener('DOMContentLoaded', fn, false);
+
+    function addNewCheckin() {
+        $.magnificPopup.open({
+            removalDelay: 500,
+            items: {
+                src: '#addCheckinModalForm'
+            },
+            callbacks: {
+                beforeOpen: function (e) {
+                    var Animation = 'mfp-sign';
+                    this.st.mainClass = Animation;
+                }
+            },
+            midClick: true
+        });
+    };
+
+    function addNewNote() {
+        $.magnificPopup.open({
+            removalDelay: 500,
+            items: {
+                src: '#addNoteModalForm'
+            },
+            callbacks: {
+                beforeOpen: function (e) {
+                    var Animation = 'mfp-sign';
+                    this.st.mainClass = Animation;
+                }
+            },
+            midClick: true
+        });
+    };
+
+    function addNewDefinition() {
+        $.magnificPopup.open({
+            removalDelay: 500,
+            items: {
+                src: '#addDefinitionModalForm'
+            },
+            callbacks: {
+                beforeOpen: function (e) {
+                    var Animation = 'mfp-sign';
+                    this.st.mainClass = Animation;
+                }
+            },
+            midClick: true
+        });
+    };
+
+    function textAreaAdjust(o) {
+        o.style.height = "1px";
+        o.style.height = (20+o.scrollHeight)+"px";
+    }
+
+</script>
+
+<partial name="_AddCheckin" model="new AddCheckInRequestModel(){ ProjectId = Model.Id.ToString(), Enviroment = env }" />
+<partial name="_AddNote" model="new AddNoteRequestModel(){ ProjectId = Model.Id.ToString()}" />
+<partial name="_AddDefinition" model="new AddDefinitionRequestModel(){ ProjectId = Model.Id.ToString(), Enviroment = env, IsDbMigration = true }" />

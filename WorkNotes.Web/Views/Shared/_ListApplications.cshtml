@@ -1,0 +1,75 @@
+﻿@using WorkNotes.Entities
+@model IEnumerable<Application>
+
+@{
+    string tableGuidId = Guid.NewGuid().ToString();
+    string url = string.Empty;
+}
+
+<div class="col-md-12">
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover" id="@tableGuidId" cellspacing="0" width="100%">
+            <thead>
+
+                <tr>
+                    <th>@Html.DisplayNameFor(x => x.Id)</th>
+                    <th>@Html.DisplayNameFor(x => x.Name)</th>
+                    <th>@Html.DisplayNameFor(x => x.IsDbMigration)</th>
+                </tr>
+
+            </thead>
+            <tbody>
+
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var app in Model.OrderBy(x => x.Name))
+                    {
+                        <tr>
+                            <td>@app.Id</td>
+                            <td>@app.Name</td>
+                            <td>@app.IsDbMigration</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+<script>
+
+    function loaded() {
+
+        // Multi-Column Filtering
+        $('#@tableGuidId thead th').each(function () {
+            var title = $('#@tableGuidId tfoot th').eq($(this).index()).text();
+            $(this).html('<input type="text" class="form-control" placeholder="Search ' + title + '" />');
+        });
+
+        // DataTable
+        var table5 = $('#@tableGuidId').DataTable({
+            "sDom": 't<"dt-panelfooter clearfix"ip>',
+            "ordering": false
+        });
+
+        // Apply search
+        table5.columns().eq(0).each(function (colIdx) {
+            $('input', table5.column(colIdx).header()).on('keyup change', function () {
+                table5
+                    .column(colIdx)
+                    .search(this.value)
+                    .draw();
+            });
+        });
+
+
+    };
+
+
+    document.addEventListener('DOMContentLoaded', loaded, false);
+
+</script>

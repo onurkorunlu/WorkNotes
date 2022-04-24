@@ -1,0 +1,79 @@
+﻿@using WorkNotes.Common.Helpers
+@using WorkNotes.Models.RequestModel
+@model AddDefinitionRequestModel
+
+<!-- AllCP Form Popup -->
+<div id="addDefinitionModalForm" class=" popup-basic allcp-form mfp-with-anim mfp-hide" style="width:40%">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title">
+                <i class="fa fa-rocket"></i>Yeni Definition Ekle
+            </span>
+        </div>
+        <!-- /Panel Heading -->
+
+        <form method="post" action="@Url.Action("AddDefinition","Definition",null)">
+            @Html.HiddenFor(x => x.ProjectId)
+            @Html.HiddenFor(x => x.IsDbMigration)
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="section">
+                        <h6><i class="fa fa-fingerprint"></i> @Html.DisplayNameFor(x => x.CheckinId) </h6>
+                        <label class="field">
+                            @Html.TextBoxFor(x => x.CheckinId, new { @Class = "form-control",@autocomplete="off"})
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="section">
+                        <h6><i class="fa fa-globe-americas"></i> @Html.DisplayNameFor(x => x.Enviroment)</h6>
+                        <label class="field">
+                            <select asp-for="Enviroment" asp-items="Html.GetEnumSelectList(typeof(WorkNotes.Entities.Enums.Enviroment))" class="form-control" ng-model="addModel.enviroment"></select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section">
+                        <h6><i class="fa fa-layer-group"></i> @Html.DisplayNameFor(x => x.ApplicationId)</h6>
+                        <label class="field">
+                            <select asp-for="ApplicationId" asp-items="ApplicationHelper.GetApplications()" class="form-control" ng-model="addModel.applicationId"></select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section">
+                        <h6><i class="fa fa-file-alt"></i> @Html.DisplayNameFor(x => x.Description)</h6>
+                        <label class="field">
+                            @Html.TextAreaFor(x => x.Description, new { @Class = "form-control" })
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section">
+                        <h6>
+                            <i class="fa fa-space-shuttle"></i> @Html.DisplayNameFor(x => x.IsDeployed) &nbsp;
+                            @Html.CheckBoxFor(x => x.IsDeployed, new { })
+
+                        </h6>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success pull-right" style="margin:10px">Kaydet</button>
+                </div>
+            </div>
+            <!-- /Panel Footer -->
+        </form>
+    </div>
+    <!-- /Panel -->
+</div>
+<!-- /Spec Form -->

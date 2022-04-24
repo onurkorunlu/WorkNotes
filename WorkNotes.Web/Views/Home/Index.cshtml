@@ -33,22 +33,22 @@
                     <div class="tab-content">
                         <div id="devTab" class="tab-pane active">
                             <div class="table-responsive">
-                                <partial name="ProjectListTablePartialView" model="Model.Where(x => x.Status == ProjectStatus.DEV || x.Status == ProjectStatus.RFQ).ToList()" ></partial>
+                                <partial name="_ListProjects" model="Model.Where(x => x.Status == ProjectStatus.DEV || x.Status == ProjectStatus.RFQ).ToList()" ></partial>
                             </div>
                         </div>
                         <div id="uatTab" class="tab-pane">
                             <div class="table-responsive">
-                                <partial name="ProjectListTablePartialView" model="Model.Where(x => x.Status == ProjectStatus.UAT).ToList()" ></partial>
+                                <partial name="_ListProjects" model="Model.Where(x => x.Status == ProjectStatus.UAT).ToList()" ></partial>
                             </div>
                         </div>
                         <div id="prodTab" class="tab-pane">
                             <div class="table-responsive">
-                                <partial name="ProjectListTablePartialView" model="Model.Where(x => x.Status == ProjectStatus.PREPROD).ToList()" ></partial>
+                                <partial name="_ListProjects" model="Model.Where(x => x.Status == ProjectStatus.PREPROD).ToList()" ></partial>
                             </div>
                         </div>
                         <div id="deployTab" class="tab-pane">
                             <div class="table-responsive">
-                                <partial name="ProjectListTablePartialView" model="Model.Where(x => x.Status == ProjectStatus.PROD).ToList()" ></partial>
+                                <partial name="_ListProjects" model="Model.Where(x => x.Status == ProjectStatus.PROD).ToList()" ></partial>
                             </div>
                         </div>
                     </div>

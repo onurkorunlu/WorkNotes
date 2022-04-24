@@ -1,14 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using WorkNotes.Entities;
+using System;
+using WorkNotes.Business.Interfaces;
+using WorkNotes.Common;
+using WorkNotes.Core;
 
 namespace WorkNotes.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : WorkNotesController
     {
         public IActionResult Index()
         {
-            return View(new List<Project>());
+            try
+            {
+                return View(AppServiceProvider.Instance.Get<IProjectService>().GetAll());
+            }
+            catch (AppException e)
+            {
+                ShowError(e);
+                return View();
+            }
+            catch (Exception ex)
+            {
+                AppException appException = new(ReturnMessages.GENERIC_ERROR, ex);
+                ShowError(appException);
+                return View();
+            }
         }
     }
 }
