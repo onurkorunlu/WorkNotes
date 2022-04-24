@@ -1,0 +1,221 @@
+﻿@{
+    bool IsHomeActive = (bool?)TempData["HomeActive"] ?? false;
+    bool IsProjectActive = (bool?)TempData["ProjectActive"] ?? false;
+    bool IsCheckinsActive = (bool?)TempData["CheckinActive"] ?? false;
+    bool IsNotesActive = (bool?)TempData["NoteActive"] ?? false;
+    bool IsLogsActive = (bool?)TempData["LogsActive"] ?? false;
+    bool IsItsmActive = (bool?)TempData["ItsmActive"] ?? false;
+    bool IsCheckinApplicationActive = (bool?)TempData["ApplicationCheckinActive"] ?? false;
+
+    string HomeActive = string.Empty;
+    string ProjectActive = string.Empty;
+    string CheckinActive = string.Empty;
+    string NoteActive = string.Empty;
+    string LogsActive = string.Empty;
+    string ItsmActive = string.Empty;
+    string CheckinApplicationActive = string.Empty;
+
+    if (IsHomeActive)
+    {
+        HomeActive = "active";
+    }
+    else if (IsProjectActive)
+    {
+        ProjectActive = "active";
+    }
+    else if (IsCheckinsActive)
+    {
+        CheckinActive = "active";
+    }
+    else if (IsNotesActive)
+    {
+        NoteActive = "active";
+    }
+    else if (IsLogsActive)
+    {
+        LogsActive = "active";
+    }
+    else if (IsItsmActive)
+    {
+        ItsmActive = "active";
+    }
+    else if (IsCheckinApplicationActive)
+    {
+        CheckinApplicationActive = "active";
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Meta and Title -->
+    <meta charset="utf-8">
+    <title>WorkNotes</title>
+    <meta name="keywords" content="HTML5, Bootstrap 3, Admin Template, UI Theme" />
+    <meta name="description" content="AdminK - A Responsive HTML5 Admin UI Framework">
+    <meta name="author" content="ThemeREX">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <!-- Angular material -->
+    <link rel="stylesheet" type="text/css" href="/css/angular-material.min.css">
+    <!-- Icomoon -->
+    <link rel="stylesheet" type="text/css" href="/fonts/icomoon/icomoon.css">
+    <!-- AnimatedSVGIcons -->
+    <link rel="stylesheet" type="text/css" href="/fonts/animatedsvgicons/css/codropsicons.css">
+    <!-- Magnific popup -->
+    <link rel="stylesheet" type="text/css" href="/js/plugins/magnific/magnific-popup.css">
+    <!-- c3charts -->
+    <link rel="stylesheet" type="text/css" href="/js/plugins/c3charts/c3.min.css">
+    <!-- Datatables CSS -->
+    <link rel="stylesheet" type="text/css" href="/js/plugins/datatables/media/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/datatables/extensions/Editor/css/dataTables.editor.css">
+    <link rel="stylesheet" type="text/css" href="/js/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css">
+    <!-- Daterange CSS -->
+    <link rel="stylesheet" type="text/css" href="/js/plugins/daterange/daterangepicker.css">
+    <!-- CSS - allcp forms -->
+    <link rel="stylesheet" type="text/css" href="/css/forms.css">
+    <!-- mCustomScrollbar -->
+    <link rel="stylesheet" type="text/css" href="/js/utility/malihu-custom-scrollbar-plugin-master/jquery.mCustomScrollbar.min.css">
+    <!-- CSS - theme -->
+    <link rel="stylesheet" type="text/css" href="/css/theme.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <!-- Notification -->
+    <link rel="stylesheet" type="text/css" href="/vendors/notification/snackbar.min.css">
+
+</head>
+<body class="sales-stats-page sb-top sb-top-lg">
+    <!-- Body Wrap -->
+    <div id="main">
+        <!-- Main Wrapper -->
+        <section id="content_wrapper" class="mb80">
+            <section class="content_container">
+
+                <!-- Content -->
+                <section id="content" class="animated fadeIn pt35 pb45">
+
+                    <div class="content-left">
+                        <ul class="nav nav-content">
+                            <li class="@HomeActive">
+                                <a href="@Url.Action("Index","Home")">
+                                    <i class="fa fa-clock-o"></i>
+                                    <span>Güncel Projeler</span>
+                                </a>
+                            </li>
+                            <li class="@ProjectActive">
+                                <a href="@Url.Action("Index","Project")">
+                                    <i class="fa fa-folder"></i>
+                                    <span>Tüm Projeler</span>
+                                </a>
+                            </li>
+                            <li class="@ItsmActive">
+                                <a href="@Url.Action("ITSMList","Project")">
+                                    <i class="fa fa-warning"></i>
+                                    <span>ITSM Kayıtları</span>
+                                </a>
+                            </li>
+                            <li class="@CheckinActive">
+                                <a href="@Url.Action("Index","Checkin")">
+                                    <i class="fa fa-code"></i>
+                                    <span>Checkin Geçmişi</span>
+                                </a>
+                            </li>
+                            <li class="@NoteActive">
+                                <a href="@Url.Action("Index","Note")">
+                                    <i class="fa fa-sticky-note"></i>
+                                    <span>Notlar</span>
+                                </a>
+                            </li>
+                            <li class="@LogsActive">
+                                <a href="@Url.Action("Index","LogMonitoring")">
+                                    <i class="fa fa-eye"></i>
+                                    <span>Log İzleme</span>
+                                </a>
+                            </li>
+                            <li class="@CheckinApplicationActive">
+                                <a href="@Url.Action("Index","ApplicationCheckin")">
+                                    <i class="fa fa-clone"></i>
+                                    <span>Uygulama Tanımı</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="content-right ">
+                        @RenderBody()
+                    </div>
+                </section>
+                <!-- /Content -->
+                <!-- Page Footer -->
+                <footer id="content-footer">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <span class="footer-legal">© @DateTime.Now.Year All rights reserved. <a href="#">Therms of use</a> and <a href="#">Privacy policy</a></span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- /Page Footer -->
+            </section>
+        </section>
+    </div>
+    <!-- /Body Wrap  -->
+    <!-- Scripts -->
+    <!-- jQuery -->
+    <script src="/js/jquery/jquery-1.12.3.min.js"></script>
+    <script src="/js/jquery/jquery_ui/jquery-ui.min.js"></script>
+    <!-- AnimatedSVGIcons -->
+    <script src="/fonts/animatedsvgicons/js/snap.svg-min.js"></script>
+    <script src="/fonts/animatedsvgicons/js/svgicons-config.js"></script>
+    <script src="/fonts/animatedsvgicons/js/svgicons.js"></script>
+    <script src="/fonts/animatedsvgicons/js/svgicons-init.js"></script>
+    <!-- Scroll -->
+    <script src="/js/utility/malihu-custom-scrollbar-plugin-master/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- Mixitup -->
+    <!-- Summernote -->
+    <!-- HighCharts Plugin -->
+    <script src="/js/plugins/highcharts/highcharts.js"></script>
+    <!-- Highlight JS -->
+    <!-- Date/Month - Pickers -->
+    <script src="/js/plugins/globalize/globalize.min.js"></script>
+    <script src="/js/plugins/moment/moment.min.js"></script>
+    <script src="/js/plugins/datepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Magnific Popup Plugin -->
+    <script src="/js/plugins/magnific/jquery.magnific-popup.js"></script>
+    <!-- FullCalendar Plugin -->
+    <!-- Plugins -->
+    <script src="/js/plugins/c3charts/d3.min.js"></script>
+    <script src="/js/plugins/c3charts/c3.min.js"></script>
+    <script src="/js/plugins/circles/circles.js"></script>
+    <!-- Google Map API -->
+    <!-- Jvectormap JS -->
+    <script src="/js/plugins/jvectormap/jquery.jvectormap.min.js"></script>
+    <script src="/js/plugins/jvectormap/assets/jquery-jvectormap-us-lcc-en.js"></script>
+    <script src="/js/plugins/jvectormap/assets/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- Datatables JS -->
+    <script src="/js/plugins/datatables/media/js/jquery.dataTables.js"></script>
+    <script src="/js/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+    <script src="/js/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
+    <script src="/js/plugins/datatables/media/js/dataTables.bootstrap.js"></script>
+    <!-- X-edit CSS -->
+    <script src="/js/plugins/typeahead/typeahead.bundle.min.js"></script>
+    <!-- Theme Scripts -->
+    <script src="/js/utility/utility.js"></script>
+    <!-- Notification-->
+    <script src="/vendors/notification/snackbar.min.js"></script>
+    <!-- Site Main-->
+    <script src="/js/main.js"></script>
+    <!-- /Scripts -->
+    @if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
+    {
+        <script>
+            Snackbar.show({
+                    text: '@ViewBag.ErrorMessage',
+                    pos: 'bottom-right',
+                    actionTextColor: '#fff',
+                    backgroundColor: '#e7515a'
+                });
+        </script>
+    }
+
+</body>
+</html>

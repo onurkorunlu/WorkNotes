@@ -1,0 +1,60 @@
+﻿@using WorkNotes.Entities
+@using WorkNotes.Entities.Enums
+@model IEnumerable<Project>
+
+<!-- Column Center -->
+<div class="chute chute-center pbn">
+
+    <div class="panel panel-visible" id="spy6">
+        <div class="panel-heading">
+            <div class="panel-title hidden-xs">
+                Chekin Geçmişi
+            </div>
+        </div>
+        <hr />
+        <div class="panel-body pn">
+
+            <div class="bs-component">
+                <div class="tab-block mb25">
+                    <ul class="nav nav-tabs tabs-border nav-justified">
+                        <li class="active">
+                            <a href="#devTab" data-toggle="tab">DEV</a>
+                        </li>
+                        <li>
+                            <a href="#uatTab" data-toggle="tab">UAT</a>
+                        </li>
+                        <li>
+                            <a href="#prodTab" data-toggle="tab">PREPROD</a>
+                        </li>
+                        <li>
+                            <a href="#deployTab" data-toggle="tab">Waiting Deploy</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="devTab" class="tab-pane active">
+                            <div class="table-responsive">
+                                <partial name="ProjectListTablePartialView" model="Model.Where(x => x.Status == ProjectStatus.DEV || x.Status == ProjectStatus.RFQ).ToList()" ></partial>
+                            </div>
+                        </div>
+                        <div id="uatTab" class="tab-pane">
+                            <div class="table-responsive">
+                                <partial name="ProjectListTablePartialView" model="Model.Where(x => x.Status == ProjectStatus.UAT).ToList()" ></partial>
+                            </div>
+                        </div>
+                        <div id="prodTab" class="tab-pane">
+                            <div class="table-responsive">
+                                <partial name="ProjectListTablePartialView" model="Model.Where(x => x.Status == ProjectStatus.PREPROD).ToList()" ></partial>
+                            </div>
+                        </div>
+                        <div id="deployTab" class="tab-pane">
+                            <div class="table-responsive">
+                                <partial name="ProjectListTablePartialView" model="Model.Where(x => x.Status == ProjectStatus.PROD).ToList()" ></partial>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Column Center -->

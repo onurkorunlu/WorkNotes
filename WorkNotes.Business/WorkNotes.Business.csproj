@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WorkNotes.Core\WorkNotes.Core.csproj" />
+    <ProjectReference Include="..\WorkNotes.DataAccess\WorkNotes.DataAccess.csproj" />
+    <ProjectReference Include="..\WorkNotes.Entities\WorkNotes.Entities.csproj" />
+    <ProjectReference Include="..\WorkNotes.Models\WorkNotes.Models.csproj" />
+  </ItemGroup>
+
+</Project>

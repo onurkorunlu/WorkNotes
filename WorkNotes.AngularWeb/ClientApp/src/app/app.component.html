@@ -1,0 +1,74 @@
+<div id="main">
+  <router-outlet></router-outlet>
+
+  <!-- Main Wrapper -->
+  <section id="content_wrapper" class="mb80">
+    <section class="content_container">
+
+      <!-- Content -->
+      <section id="content" class="animated fadeIn pt35 pb45">
+
+        <div class="content-left">
+          <ul class="nav nav-content">
+            <li class="@HomeActive">
+              <a href="@Url.Action(" Index","Home")">
+                <i class="fa fa-clock-o"></i>
+                <span>Güncel Projeler</span>
+              </a>
+            </li>
+            <li class="@ProjectActive">
+              <a href="@Url.Action(" Index","Project")">
+                <i class="fa fa-folder"></i>
+                <span>Tüm Projeler</span>
+              </a>
+            </li>
+            <li class="@ItsmActive">
+              <a href="@Url.Action(" ITSMList","Project")">
+                <i class="fa fa-warning"></i>
+                <span>ITSM Kayıtları</span>
+              </a>
+            </li>
+            <li class="@CheckinActive">
+              <a href="@Url.Action(" Index","Checkin")">
+                <i class="fa fa-code"></i>
+                <span>Checkin Geçmişi</span>
+              </a>
+            </li>
+            <li class="@NoteActive">
+              <a href="@Url.Action(" Index","Note")">
+                <i class="fa fa-sticky-note"></i>
+                <span>Notlar</span>
+              </a>
+            </li>
+            <li class="@LogsActive">
+              <a href="@Url.Action(" Index","LogMonitoring")">
+                <i class="fa fa-eye"></i>
+                <span>Log İzleme</span>
+              </a>
+            </li>
+            <li class="@CheckinApplicationActive">
+              <a href="@Url.Action(" Index","ApplicationCheckin")">
+                <i class="fa fa-clone"></i>
+                <span>Uygulama Tanımı</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="content-right ">
+          İçerik
+        </div>
+      </section>
+      <!-- /Content -->
+      <!-- Page Footer -->
+      <footer id="content-footer">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <span class="footer-legal">© @DateTime.Now.Year All rights reserved. <a href="#">Therms of use</a> and <a href="#">Privacy policy</a></span>
+          </div>
+        </div>
+      </footer>
+      <!-- /Page Footer -->
+    </section>
+  </section>
+</div>
