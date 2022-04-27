@@ -14,6 +14,8 @@ namespace WorkNotes.Models.RequestModel
 
         public string ApplicationId { get; set; }
         public string Description { get; set; }
+
+        public string DeployPackageId { get; set; }
         public bool IsDeployed { get; set; }
     }
 }

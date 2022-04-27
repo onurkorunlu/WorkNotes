@@ -137,3 +137,95 @@ function displayInfo(message) {
     });
 }
 // Notification End
+
+// ConfirmJS Begin
+function confirmJs(title, content, confirmFunction) {
+    $.confirm({
+        title: title,
+        content: content,
+        buttons: {
+            cancel: {
+                text: 'İptal',
+                btnClass: 'btn-default',
+                keys: ['esc'],
+            },
+            confirm: {
+                text: 'Evet',
+                btnClass: 'btn-blue',
+                keys: ['enter'],
+                action: confirmFunction
+            }
+        }
+    });
+}
+
+function alertJs(title, content) {
+    $.alert({
+        title: title,
+        content: content
+    });
+}
+
+function alertInputJs(title, labelTitle, inputPlaceHolder) {
+    $.confirm({
+        title: title,
+        content: '' +
+            '<form action="" class="formName">' +
+            '<div class="form-group">' +
+            '<label>' + labelTitle + '</label>' +
+            '<input type="text" placeholder="' + inputPlaceHolder+'" class="alertInput form-control" required />' +
+            '</div>' +
+            '</form>',
+        buttons: {
+            formSubmit: {
+                text: 'Submit',
+                btnClass: 'btn-blue',
+                action: function () {
+                    var alertInputValue = this.$content.find('.alertInput').val();
+                    if (!alertInputValue) {
+                        $.alert('Lütfen giriş yapınız.');
+                        return false;
+                    }
+                    alertInputJsSubmit(alertInputValue);
+                }
+            },
+            cancel: function () {
+                //close
+            },
+        },
+        onContentReady: function () {
+            // bind to events
+            var jc = this;
+            this.$content.find('form').on('submit', function (e) {
+                // if the user submits the form by pressing enter in the field.
+                e.preventDefault();
+                jc.$$formSubmit.trigger('click'); // reference the button and click it
+            });
+        }
+    });
+}
+// ConfirmJs End
+
+// methods
+
+function substringMatcher(strs) {
+    return function findMatches(q, cb) {
+        var matches, substrRegex;
+
+        matches = [];
+
+        // check if string contain "q"
+        substrRegex = new RegExp(q, 'i');
+
+        // if "q" - add to matches []
+        $.each(strs, function (i, str) {
+            if (substrRegex.test(str)) {
+                matches.push({
+                    value: str
+                });
+            }
+        });
+
+        cb(matches);
+    };
+};

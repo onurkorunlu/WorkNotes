@@ -1,0 +1,26 @@
+﻿@using WorkNotes.Entities
+@model IEnumerable<Application>
+
+
+<!-- Column Center -->
+<div class="chute chute-center">
+    <div class="panel panel-visible" id="spy6">
+        <div class="panel-heading">
+            <div class="panel-title hidden-xs">
+                Log İzleme
+            </div>
+            <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-2">
+                    <a href="@Url.Action("Add","Application")" type="button" class="btn btn-hover btn-dark btn-block">Yeni Uygulama Tanımı</a>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="panel-body pn">
+            <partial name="_ListApplications" model="Model" />
+        </div>
+    </div>
+</div>
+
+<script src=~/js/pages/Application/application.js></script>

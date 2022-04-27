@@ -13,9 +13,9 @@
             <thead>
 
                 <tr>
-                    <th>@Html.DisplayNameFor(x => x.Id)</th>
                     <th>@Html.DisplayNameFor(x => x.Name)</th>
                     <th>@Html.DisplayNameFor(x => x.IsDbMigration)</th>
+                    <th></th>
                 </tr>
 
             </thead>
@@ -26,9 +26,11 @@
                     foreach (var app in Model.OrderBy(x => x.Name))
                     {
                         <tr>
-                            <td>@app.Id</td>
                             <td>@app.Name</td>
                             <td>@app.IsDbMigration</td>
+                            <td>
+                                <button type="button" class="btn btn-danger" onclick="deleteConfirm('@app.Id.ToString()','@app.Name')">Uygulamayı Sil</button>
+                            </td>
                         </tr>
                     }
                 }

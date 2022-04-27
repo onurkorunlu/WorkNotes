@@ -1,0 +1,50 @@
+﻿@using WorkNotes.Models.RequestModel
+@model AddApplicationRequestModel
+
+<!-- Column Center -->
+<div class="chute chute-center">
+
+    <div class="mw1000 center-block">
+
+        <!-- Spec Form -->
+        <div class="allcp-form">
+            <div class="panel">
+                <div class="panel-heading pbn">
+                    <h5 class="panel-title pln ptn">Yeni Uygulama Ekle</h5>
+                    <hr />
+                </div>
+                <div class="panel-body pn">
+                    <form method="post" action="#" id="form-ui">
+                        <!-- Basic -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="section">
+                                    <h6>@Html.DisplayNameFor(x => x.Name)</h6>
+                                        @Html.TextBoxFor(x => x.Name, new { @Class = "form-control typeahead" })
+                                        @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger", })
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="section">
+                                    <h6>@Html.DisplayNameFor(x => x.IsDbMigration)</h6>
+                                        @Html.CheckBoxFor(x => x.IsDbMigration )
+                                        @Html.ValidationMessageFor(x => x.IsDbMigration, "", new { @class = "text-danger", })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-success pull-right">Kaydet</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- /form -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<!-- /Column Center -->

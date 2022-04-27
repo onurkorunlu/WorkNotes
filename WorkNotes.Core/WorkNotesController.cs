@@ -76,7 +76,7 @@ namespace WorkNotes.Core
 
         public void ShowError(AppException e)
         {
-            ViewBag.ErrorMessage = e.Message;
+            TempData["ErrorMessage"] = e.Message;
         }
 
         #endregion

@@ -36,11 +36,13 @@
     <link rel="stylesheet" type="text/css" href="/vendors/notification/snackbar.min.css">
     <!-- Datepickler -->
     <link rel="stylesheet" type="text/css" href="/vendors/datepicker/css/bootstrap-datepicker.min.css">
+    <!-- confirmjs -->
+    <link rel="stylesheet" type="text/css" href="/vendors/confirmjs/jquery-confirm.min.css">
 
 </head>
 <body class="sales-stats-page sb-top sb-top-lg">
 
-      <!-- jQuery -->
+    <!-- jQuery -->
     <script src="/js/jquery/jquery-1.12.3.min.js"></script>
     <script src="/js/jquery/jquery_ui/jquery-ui.min.js"></script>
 
@@ -55,44 +57,44 @@
 
                     <div class="content-left">
                         <ul class="nav nav-content">
-                            <li class="active">
+                            <li class="@(Context.Request.Path.Value.Equals("/") ? "active" : "")">
                                 <a href="@Url.Action("Index","Home")">
                                     <i class="fa fa-clock-o"></i>
                                     <span>Güncel Projeler</span>
                                 </a>
                             </li>
-                            <li class="">
+                            <li class="@(Context.Request.Path.Value.Equals("/Project") ? "active" : "")">
                                 <a href="@Url.Action("Index","Project")">
                                     <i class="fa fa-folder"></i>
                                     <span>Tüm Projeler</span>
                                 </a>
                             </li>
-                            <li class="">
+                            <li class="@(Context.Request.Path.Value.Equals("/Project/ITSMList") ? "active" : "")">
                                 <a href="@Url.Action("ITSMList","Project")">
                                     <i class="fa fa-warning"></i>
                                     <span>ITSM Kayıtları</span>
                                 </a>
                             </li>
-                            <li class="">
+                            <li class="@(Context.Request.Path.Value.Equals("/Checkin") ? "active" : "")">
                                 <a href="@Url.Action("Index","Checkin")">
                                     <i class="fa fa-code"></i>
                                     <span>Checkin Geçmişi</span>
                                 </a>
                             </li>
-                            <li class="">
+                            <li class="@(Context.Request.Path.Value.Equals("/Note") ? "active" : "")">
                                 <a href="@Url.Action("Index","Note")">
                                     <i class="fa fa-sticky-note"></i>
                                     <span>Notlar</span>
                                 </a>
                             </li>
-                            <li class="">
+                            <li class="@(Context.Request.Path.Value.Equals("/LogMonitoring") ? "active" : "")">
                                 <a href="@Url.Action("Index","LogMonitoring")">
                                     <i class="fa fa-eye"></i>
                                     <span>Log İzleme</span>
                                 </a>
                             </li>
-                            <li class="">
-                                <a href="@Url.Action("Index","ApplicationCheckin")">
+                            <li class="@(Context.Request.Path.Value.Equals("/Application") ? "active" : "")">
+                                <a href="@Url.Action("Index","Application")">
                                     <i class="fa fa-clone"></i>
                                     <span>Uygulama Tanımı</span>
                                 </a>
@@ -119,7 +121,6 @@
     </div>
     <!-- /Body Wrap  -->
     <!-- Scripts -->
-  
     <!-- AnimatedSVGIcons -->
     <script src="/fonts/animatedsvgicons/js/snap.svg-min.js"></script>
     <script src="/fonts/animatedsvgicons/js/svgicons-config.js"></script>
@@ -161,15 +162,17 @@
     <!-- Datepicker-->
     <script src="/vendors/datepicker/js/bootstrap-datepicker.min.js"></script>
     <script src="/vendors/datepicker/locales/bootstrap-datepicker.tr.min.js"></script>
+    <!-- confirmjs -->
+    <script src="/vendors/confirmjs/jquery-confirm.min.js"></script>
     <!-- Site Main-->
     <script src="/js/main.js"></script>
     <script src="/js/pages/Main/Main.js"></script>
     <!-- /Scripts -->
-    @if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
+    @if (TempData["ErrorMessage"] != null)
     {
         <script>
             Snackbar.show({
-                    text: '@ViewBag.ErrorMessage',
+                    text: '@TempData["ErrorMessage"]',
                     pos: 'bottom-right',
                     actionTextColor: '#fff',
                     backgroundColor: '#e7515a'

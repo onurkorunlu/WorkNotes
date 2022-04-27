@@ -17,7 +17,7 @@
                     <th>@Html.DisplayNameFor(x => x.Code)</th>
                     <th>@Html.DisplayNameFor(x => x.Title)</th>
                     <th>@Html.DisplayNameFor(x => x.CreateDate)</th>
-                    <th>@Html.DisplayNameFor(x => x.UpdateDate)</th>
+                    <th>@Html.DisplayNameFor(x => x.TargetDate)</th>
                     <th>@Html.DisplayNameFor(x => x.Status)</th>
                 </tr>
 
@@ -73,7 +73,7 @@
                             <td style="color:@tdColor">@project.Code</td>
                             <td style="color:@tdColor">@project.Title</td>
                             <td>@project.CreateDate</td>
-                            <td>@project.UpdateDate</td>
+                            <td>@(project.TargetDate.HasValue ? project.TargetDate.Value.ToString("dd MMMM yyyy") : "")</td>
                             <td style="color:white;background-color:@bgcolor">
                                 <b>
                                     @project.Status

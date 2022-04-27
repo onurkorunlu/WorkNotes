@@ -151,41 +151,44 @@ namespace WorkNotes.Web.Controllers
 
 
         [HttpPost]
-        public JsonResult Update(UpdateProjectRequestModel model)
+        public ActionResult Update(UpdateProjectRequestModel model)
         {
             try
             {
                 CheckModelState(model);
                 var project = AppServiceProvider.Instance.Get<IProjectService>().Update(model);
-                return PrepareSuccessJsonResult(project, true);
+                return RedirectToAction("Detail", new { id = model.Id.ToString() });
             }
             catch (AppException e)
             {
-                return PrepareErrorJsonResult(e, true, model);
+                ShowError(e);
+                return RedirectToAction("Detail", new { id = model.Id.ToString() });
             }
             catch (Exception ex)
             {
                 AppException appException = new(ReturnMessages.GENERIC_ERROR, ex);
-                return PrepareErrorJsonResult(appException, true, model);
+                ShowError(appException);
+                return RedirectToAction("Detail", new { id = model.Id.ToString() });
             }
         }
 
-        [HttpPost]
-        public JsonResult UpdateStatus(ProjectStatus status, string id)
+        public ActionResult UpdateStatus(ProjectStatus status, string id)
         {
             try
             {
                 var project = AppServiceProvider.Instance.Get<IProjectService>().UpdateStatus(id, status);
-                return PrepareSuccessJsonResult(project, true);
+                return RedirectToAction("Detail", new { id = id });
             }
             catch (AppException e)
             {
-                return PrepareErrorJsonResult(e, true, new { status = status, id = id });
+                ShowError(e);
+                return RedirectToAction("Detail", new { id = id});
             }
             catch (Exception ex)
             {
                 AppException appException = new(ReturnMessages.GENERIC_ERROR, ex);
-                return PrepareErrorJsonResult(appException, true, new { status = status, id = id });
+                ShowError(appException);
+                return RedirectToAction("Detail", new { id = id});
             }
         }
 
@@ -216,5 +219,50 @@ namespace WorkNotes.Web.Controllers
 
         #endregion
 
+        #region CheckIn
+
+        public ActionResult AddCheckIn(AddCheckInRequestModel model)
+        {
+            try
+            {
+                CheckModelState(model);
+                var project = AppServiceProvider.Instance.Get<IProjectService>().AddCheckIn(model);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+            catch (AppException e)
+            {
+                ShowError(e);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+            catch (Exception ex)
+            {
+                AppException appException = new(ReturnMessages.GENERIC_ERROR, ex);
+                ShowError(appException);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+        }
+
+        public ActionResult DeleteCheckIn(DeleteCheckInRequestModel model)
+        {
+            try
+            {
+                CheckModelState(model);
+                var project = AppServiceProvider.Instance.Get<IProjectService>().DeleteCheckIn(model.ProjectId, model.CheckInId, model.ApplicationId);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+            catch (AppException e)
+            {
+                ShowError(e);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+            catch (Exception ex)
+            {
+                AppException appException = new(ReturnMessages.GENERIC_ERROR, ex);
+                ShowError(appException);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+        }
+
+        #endregion
     }
 }

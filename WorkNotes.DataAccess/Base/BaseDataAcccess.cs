@@ -44,9 +44,9 @@ namespace WorkNotes.DataAccess.Base
             List<TEntity> result = new List<TEntity>();
             try
             {
-                var data = _collection.AsQueryable().ToList();
+                var data = FilterBy(x => x.RecordStatus);
                 if (data != null)
-                    result = data;
+                    result = data.ToList();
             }
             catch (Exception ex)
             {
@@ -108,8 +108,7 @@ namespace WorkNotes.DataAccess.Base
                 else
                     objectId = ObjectId.Parse(id);
 
-                var filter = Builders<TEntity>.Filter.Eq("_id", objectId);
-                var data = _collection.Find(filter).FirstOrDefault();
+                var data = _collection.Find(x => x.Id == (ObjectId)objectId && x.RecordStatus).FirstOrDefault();
                 if (data != null)
                     result = data;
             }

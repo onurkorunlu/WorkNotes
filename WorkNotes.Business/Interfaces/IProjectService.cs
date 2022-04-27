@@ -11,15 +11,17 @@ namespace WorkNotes.Business.Interfaces
 
         Project GetById(string id);
 
-
         Project Create(AddProjectRequestModel model);
-
 
         Project Update(UpdateProjectRequestModel model);
 
         Project UpdateStatus(string id, ProjectStatus status);
 
-
         Project Delete(string id);
+
+        Project AddCheckIn(AddCheckInRequestModel model);
+
+        Project DeleteCheckIn(string projectId, string checkInId, string applicationId);
+
     }
 }

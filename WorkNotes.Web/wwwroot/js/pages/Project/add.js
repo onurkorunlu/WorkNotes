@@ -48,28 +48,6 @@ function initStatus() {
     }
 }
 
-function substringMatcher(strs) {
-    return function findMatches(q, cb) {
-        var matches, substrRegex;
-
-        matches = [];
-
-        // check if string contain "q"
-        substrRegex = new RegExp(q, 'i');
-
-        // if "q" - add to matches []
-        $.each(strs, function (i, str) {
-            if (substrRegex.test(str)) {
-                matches.push({
-                    value: str
-                });
-            }
-        });
-
-        cb(matches);
-    };
-};
-
 $("#form").submit(function (eventObj) {
     $("<input />").attr("type", "hidden")
         .attr("name", "TargetDate")

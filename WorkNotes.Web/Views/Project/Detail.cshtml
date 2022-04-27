@@ -1,6 +1,7 @@
 ﻿@using WorkNotes.Entities
 @using WorkNotes.Entities.Enums
 @using WorkNotes.Models.RequestModel
+@using WorkNotes.Models.ViewModel
 @model Project
 @{
     Enviroment env = Enviroment.DEV;
@@ -11,6 +12,53 @@
     else if (Model.Status == ProjectStatus.PREPROD)
     {
         env = Enviroment.PREPROD;
+    }
+
+    ProjectStatusStyleViewModel getStatusStyle(ProjectStatus status)
+    {
+        ProjectStatusStyleViewModel result= new ProjectStatusStyleViewModel();
+
+        switch (status)
+        {
+            case ProjectStatus.DEV:
+                result.Color = "danger";
+                result.Value = "25";
+                break;
+            case ProjectStatus.RFQ:
+                  result.Color = "dark";
+                result.Value = "45";
+                break;
+            case ProjectStatus.UAT:
+                result.Color = "warning";
+                result.Value = "65";
+                break;
+            case ProjectStatus.PREPROD:
+                result.Color = "info";
+                result.Value = "85";
+                break;
+            case ProjectStatus.PROD:
+                result.Color = "success";
+                result.Value = "90";
+                break;
+            case ProjectStatus.DONE:
+                result.Color = "success";
+                result.Value = "100";
+                break;
+            case ProjectStatus.PENDING:
+                result.Color = "default";
+                result.Value = "100";
+                break;
+            case ProjectStatus.CANCELLED:
+                result.Color = "default";
+                result.Value = "100";
+                break;
+            default:
+                result.Color = "";
+                result.Value = "0";
+                break;
+        }
+
+        return result;
     }
 }
 <!-- Column Center -->
@@ -28,79 +76,42 @@
                     <button id="btnAddDefinition" class="btn btn-gradient-grey btn-xs pull-right" onclick="addNewDefinition()" data-effect="mfp-sign" style="margin:1px">Tanım Ekle</button>
                     <br />
                     <br />
-                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.DEV,ProjectId=Model.Id })" type="button" class="btn btn-danger btn-xs">
+                    <a href="@Url.Action("UpdateStatus",new { status=ProjectStatus.DEV,id=Model.Id })" type="button" class="btn btn-danger btn-xs">
                         <i class="far fa-keyboard"></i>&nbsp; DEV
                     </a>
-                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.RFQ,ProjectId=Model.Id })" type="button" class="btn btn-dark btn-xs">
+                    <a href="@Url.Action("UpdateStatus",new { status=ProjectStatus.RFQ,id=Model.Id })" type="button" class="btn btn-dark btn-xs">
                         <i class="far fa-keyboard"></i>&nbsp; READYFORQA
                     </a>
-                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.UAT,ProjectId=Model.Id })" type="button" class="btn bg-warning btn-xs">
+                    <a href="@Url.Action("UpdateStatus",new { status=ProjectStatus.UAT,id=Model.Id })" type="button" class="btn bg-warning btn-xs">
                         <i class="fas fa-vial"></i>&nbsp; UAT
                     </a>
-                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.PREPROD,ProjectId=Model.Id })" type="button" class="btn bg-primary btn-xs" style="color:white">
+                    <a href="@Url.Action("UpdateStatus",new { status=ProjectStatus.PREPROD,id=Model.Id })" type="button" class="btn bg-primary btn-xs" style="color:white">
                         <i class="fas fa-check"></i>&nbsp; PREPROD
                     </a>
-                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.PROD,ProjectId=Model.Id })" type="button" class="btn btn-info btn-xs">
+                    <a href="@Url.Action("UpdateStatus",new { status=ProjectStatus.PROD,id=Model.Id })" type="button" class="btn btn-info btn-xs">
                         <i class="fa fa-check-double"></i>&nbsp; PROD
                     </a>
-                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.DONE,ProjectId=Model.Id })" type="button" class="btn bg-success btn-xs" style="color:white">
+                    <a href="@Url.Action("UpdateStatus",new { status=ProjectStatus.DONE,id=Model.Id })" type="button" class="btn bg-success btn-xs" style="color:white">
                         <i class="fa fa-check-circle"></i>&nbsp; DONE
                     </a>
                     <text>
                         <i class="fa fa-slash"></i>&nbsp;
                     </text>
-                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.PENDING,ProjectId=Model.Id })" type="button" class="btn btn-xs" style="background-color: #9e9e9e52;color: #607D8B;">
+                    <a href="@Url.Action("UpdateStatus",new { status=ProjectStatus.PENDING,id=Model.Id })" type="button" class="btn btn-xs" style="background-color: #9e9e9e52;color: #607D8B;">
                         <i class="fa fa-clock"></i>&nbsp; Beklemede
                     </a>
-                    <a href="@Url.Action("UpdateStatus",new { Status=ProjectStatus.CANCELLED,ProjectId=Model.Id })" type="button" class="btn btn-xs" style="background-color: #ddd;color: red;">
+                    <a href="@Url.Action("UpdateStatus",new { status=ProjectStatus.CANCELLED,id=Model.Id })" type="button" class="btn btn-xs" style="background-color: #ddd;color: red;">
                         <i class="fa fa-exclamation"></i>&nbsp; İptal
                     </a>
 
                     <div class="progress mt10">
-                        @if (Model.Status == ProjectStatus.DEV || Model.Status == ProjectStatus.RFQ)
-                        {
-                            <div class="progress-bar progress-bar-danger progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;padding: 3px;">
-                                DEV
-                            </div>
-                        }
-                        else if (Model.Status == ProjectStatus.UAT)
-                        {
-                            <div class="progress-bar progress-bar-warning progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;padding: 3px;">
-                                UAT
-                            </div>
-                        }
-                        else if (Model.Status == ProjectStatus.PREPROD)
-                        {
-                            <div class="progress-bar progress-bar-info progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 75%;padding: 3px;">
-                                PREPROD
-                            </div>
-                        }
-                        else if (Model.Status == ProjectStatus.PROD)
-                        {
-                            <div class="progress-bar progress-bar-success progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;padding: 3px;">
-                                PROD
-                            </div>
-                        }
-                        else if (Model.Status == ProjectStatus.DONE)
-                        {
-                            <div class="progress-bar progress-bar-success progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;padding: 3px;">
-                                Tamamlandı
-                            </div>
-                        }
-                        else if (Model.Status == ProjectStatus.PENDING)
-                        {
-                            <div class="progress-bar progress-bar-default progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;padding: 3px;">
-                                Beklemede
-                            </div>
-                        }
-                        else if (Model.Status == ProjectStatus.CANCELLED)
-                        {
-                            <div class="progress-bar progress-bar-dark progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;padding: 3px;">
-                                İptal
+                        @{
+                            var statusStyle = getStatusStyle(Model.Status);
+                            <div class="progress-bar progress-bar-@statusStyle.Color progress-bar-striped active text-center" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @statusStyle.Value%;padding: 3px;">
+                                @Model.Status
                             </div>
                         }
                     </div>
-
                     <hr />
                 </div>
                 <div class="panel-body pn">
@@ -111,7 +122,7 @@
                             <div class="col-md-3">
                                 <div class="section">
                                     <h6>@Html.DisplayNameFor(x => x.Code)</h6>
-                                    @Html.TextBoxFor(x => x.Code, new { @Class = "form-control" })
+                                    @Html.TextBoxFor(x => x.Code, new { @Class = "form-control typeahead", @Style="text-transform:uppercase" })
                                     @Html.ValidationMessageFor(x => x.Code, "", new { @class = "text-danger", })
                                 </div>
                             </div>
@@ -125,16 +136,7 @@
                             <div class="col-md-3">
                                 <div class="section">
                                     <h6>@Html.DisplayNameFor(x => x.TargetDate)</h6>
-
-                                    @if (Model.TargetDate.HasValue)
-                                    {
-                                        @Html.TextBoxFor(x => x.TargetDate, new { @Class = "form-control", @type = "date", Value = Model.TargetDate.Value.ToString("dd MMMM yyyy") })
-                                    }
-                                    else
-                                    {
-                                        @Html.TextBoxFor(x => x.TargetDate, new { @Class = "form-control", @type = "date" })
-                                    }
-
+                                    <input id="TargetDatePicker" type="text" class="form-control" autocomplete="off" />
                                     @Html.ValidationMessageFor(x => x.TargetDate, "", new { @class = "text-danger", })
                                 </div>
                             </div>
@@ -151,8 +153,7 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                @Html.ActionLink("Projeyi Sil", "Delete", new { projectId = Model.Id }, new { Class = "btn btn-danger" })
-
+                                <button type="button" class="btn btn-danger" onclick="deleteConfirm('@Model.Id.ToString()','@Model.Code')">Projeyi Sil</button>
                             </div>
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-info pull-right">Güncelle</button>
@@ -337,109 +338,14 @@
 </div>
 <!-- /Column Center -->
 
-<script>
 
-
-    function fn() {
-        var states = [@Html.Raw(TempData["Codes"])];
-
-        // Init Typeahead
-        $('.typeahead').typeahead({
-            hint: true,
-            highlight: true,
-            minLength: 1
-        }, {
-                name: 'states',
-                displayKey: 'value',
-                source: substringMatcher(states)
-            });
-
-        textAreaAdjust(document.getElementById('Description'));
-    }
-
-    // Init Twitter Typeahead.js
-    var substringMatcher = function (strs) {
-        return function findMatches(q, cb) {
-            var matches, substrRegex;
-
-            matches = [];
-
-            // check if string contain "q"
-            substrRegex = new RegExp(q, 'i');
-
-            // if "q" - add to matches []
-            $.each(strs, function (i, str) {
-                if (substrRegex.test(str)) {
-                    matches.push({
-                        value: str
-                    });
-                }
-            });
-
-            cb(matches);
-        };
-
-    };
-
-
-
-    document.addEventListener('DOMContentLoaded', fn, false);
-
-    function addNewCheckin() {
-        $.magnificPopup.open({
-            removalDelay: 500,
-            items: {
-                src: '#addCheckinModalForm'
-            },
-            callbacks: {
-                beforeOpen: function (e) {
-                    var Animation = 'mfp-sign';
-                    this.st.mainClass = Animation;
-                }
-            },
-            midClick: true
-        });
-    };
-
-    function addNewNote() {
-        $.magnificPopup.open({
-            removalDelay: 500,
-            items: {
-                src: '#addNoteModalForm'
-            },
-            callbacks: {
-                beforeOpen: function (e) {
-                    var Animation = 'mfp-sign';
-                    this.st.mainClass = Animation;
-                }
-            },
-            midClick: true
-        });
-    };
-
-    function addNewDefinition() {
-        $.magnificPopup.open({
-            removalDelay: 500,
-            items: {
-                src: '#addDefinitionModalForm'
-            },
-            callbacks: {
-                beforeOpen: function (e) {
-                    var Animation = 'mfp-sign';
-                    this.st.mainClass = Animation;
-                }
-            },
-            midClick: true
-        });
-    };
-
-    function textAreaAdjust(o) {
-        o.style.height = "1px";
-        o.style.height = (20+o.scrollHeight)+"px";
-    }
-
-</script>
 
 <partial name="_AddCheckin" model="new AddCheckInRequestModel(){ ProjectId = Model.Id.ToString(), Enviroment = env }" />
 <partial name="_AddNote" model="new AddNoteRequestModel(){ ProjectId = Model.Id.ToString()}" />
 <partial name="_AddDefinition" model="new AddDefinitionRequestModel(){ ProjectId = Model.Id.ToString(), Enviroment = env, IsDbMigration = true }" />
+
+<script src=~/js/pages/Project/detail.js></script>
+<script>
+    //Variables
+    var currentDate = '@Model.TargetDate?.ToString("MM'/'dd'/'yyyy")';
+</script>
