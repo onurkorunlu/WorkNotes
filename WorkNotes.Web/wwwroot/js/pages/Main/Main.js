@@ -3,9 +3,9 @@ function httpGet(url, data, success, failure) {
 
     $.ajax({
         type: "GET",
-        url: url,
+        url: '/WorkNotes' + url,
         data: data,
-        success: 
+        success:
             function (result) {
                 console.log(url + '>>')
                 console.log(result);
@@ -47,7 +47,7 @@ function post(url, data, success, failure) {
 
     $.ajax({
         type: "POST",
-        url: url,
+        url: '/WorkNotes' + url,
         data: data,
         success: successFunc,
         error: errorFunc,
@@ -173,7 +173,7 @@ function alertInputJs(title, labelTitle, inputPlaceHolder) {
             '<form action="" class="formName">' +
             '<div class="form-group">' +
             '<label>' + labelTitle + '</label>' +
-            '<input type="text" placeholder="' + inputPlaceHolder+'" class="alertInput form-control" required />' +
+            '<input type="text" placeholder="' + inputPlaceHolder + '" class="alertInput form-control" required />' +
             '</div>' +
             '</form>',
         buttons: {

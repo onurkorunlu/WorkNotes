@@ -17,4 +17,8 @@
     <ProjectReference Include="..\WorkNotes.Models\WorkNotes.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\vendors\fontawesome\" />
+  </ItemGroup>
+
 </Project>
