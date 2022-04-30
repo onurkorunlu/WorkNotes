@@ -13,13 +13,13 @@
         </div>
         <!-- /Panel Heading -->
 
-        <form method="post" action="@Url.Action("AddCheckin","CheckIn",null)">
+        <form method="post" action="@Url.Action("AddCheckin","Project",null)">
             @Html.HiddenFor(x => x.ProjectId)
             <div class="row">
                 <div class="col-md-6">
                     <div class="section">
                         <h6><i class="fa fa-fingerprint"></i> @Html.DisplayNameFor(x => x.CheckinId) </h6>
-                        @Html.TextBoxFor(x => x.CheckinId, new { @Class = "form-control" , @autocomplete="off"})
+                        @Html.TextBoxFor(x => x.CheckinId, new { @Class = "form-control" , @type="number", @autocomplete="off"})
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -46,23 +46,25 @@
                 </div>
             </div>
             <div class="row">
+                  <div class="col-md-6">
+                    <div class="section" id="addCheckInDeployPackageId">
+                        <h6><i class="fa fa-fingerprint"></i> @Html.DisplayNameFor(x => x.DeployPackageId) </h6>
+                        @Html.TextBoxFor(x => x.DeployPackageId, new { @Class = "form-control" , @autocomplete="off"})
+                    </div>
+                </div>
                 <div class="col-md-6">
                     <div class="section">
                         <h6>
                             <i class="fa fa-space-shuttle"></i>
                             @Html.DisplayNameFor(x => x.IsDeployed) &nbsp;
-                            @Html.CheckBoxFor(x => x.IsDeployed, new { })
+                            @Html.CheckBoxFor(x => x.IsDeployed, new {id="addCheckInIsDeployed"})
                         </h6>
 
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="section">
-                        <h6><i class="fa fa-fingerprint"></i> @Html.DisplayNameFor(x => x.DeployPackageId) </h6>
-                        @Html.TextBoxFor(x => x.DeployPackageId, new { @Class = "form-control" , @autocomplete="off"})
-                    </div>
-                </div>
             </div>
+
+            @Html.HiddenFor(x=>x.IsDbMigration,new { @Value=true})
 
             <div class="row">
                 <div class="col-md-12">
@@ -75,3 +77,5 @@
     <!-- /Panel -->
 </div>
 <!-- /Spec Form -->
+
+<script src="~/js/pages/Project/addCheckIn.js"></script>

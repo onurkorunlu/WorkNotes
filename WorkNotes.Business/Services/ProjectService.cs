@@ -9,6 +9,7 @@ using WorkNotes.DataAccess.Interfaces;
 using WorkNotes.Entities;
 using WorkNotes.Entities.Enums;
 using WorkNotes.Models.RequestModel;
+using WorkNotes.Models.ViewModel;
 
 namespace WorkNotes.Business.Services
 {
@@ -16,17 +17,17 @@ namespace WorkNotes.Business.Services
     {
         private readonly CultureInfo cultureInfo = new CultureInfo("tr-TR");
 
-        public ICollection<Project> GetAll()
+        public ICollection<ProjectViewModel> GetAll()
         {
-            return AppServiceProvider.Instance.Get<IProjectDataAccess>().GetAll();
+            return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().GetAll());
         }
 
-        public Project GetById(string id)
+        public ProjectViewModel GetById(string id)
         {
-            return AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(id);
+            return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(id));
         }
 
-        public Project Create(AddProjectRequestModel model)
+        public ProjectViewModel Create(AddProjectRequestModel model)
         {
 
             Project project = new()
@@ -40,10 +41,10 @@ namespace WorkNotes.Business.Services
                 RecordStatus = true
             };
 
-            return AppServiceProvider.Instance.Get<IProjectDataAccess>().InsertOne(project);
+            return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().InsertOne(project));
         }
 
-        public Project Update(UpdateProjectRequestModel model)
+        public ProjectViewModel Update(UpdateProjectRequestModel model)
         {
             var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(model.Id);
             project.Code = model.Code.SafeTrim().ToUpper(cultureInfo);
@@ -52,19 +53,19 @@ namespace WorkNotes.Business.Services
             project.Type = model.Type;
             project.TargetDate = model.TargetDate.GetValueOrDefault();
 
-            return AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, model.Id.ToString());
+            return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, model.Id.ToString()));
         }
 
-        public Project UpdateStatus(string id, ProjectStatus status)
+        public ProjectViewModel UpdateStatus(string id, ProjectStatus status)
         {
             var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(id);
             project.Status = status;
-            return AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, id);
+            return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, id));
         }
 
-        public Project Delete(string id)
+        public ProjectViewModel Delete(string id)
         {
-            return AppServiceProvider.Instance.Get<IProjectDataAccess>().DeleteById(id);
+            return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().DeleteById(id));
         }
 
         private DateTime GetTargetDate(DateTime targetDate)
@@ -72,7 +73,7 @@ namespace WorkNotes.Business.Services
             return new DateTime(targetDate.Year, targetDate.Month, targetDate.Day, 18, 0, 0);
         }
 
-        public Project AddCheckIn(AddCheckInRequestModel model)
+        public ProjectViewModel AddCheckIn(AddCheckInRequestModel model)
         {
             var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(model.ProjectId);
             var application = AppServiceProvider.Instance.Get<IApplicationDataAccess>().GetById(model.ApplicationId);
@@ -84,7 +85,7 @@ namespace WorkNotes.Business.Services
 
             if (project.CheckIns.Any(x => x.CheckinId == model.CheckinId && x.Application.Id.ToString() == model.ApplicationId))
             {
-                return project;
+                return project.ToMap<ProjectViewModel>(); ;
             }
 
             CheckIn checkIn = new()
@@ -100,10 +101,10 @@ namespace WorkNotes.Business.Services
 
             project.CheckIns.Add(checkIn);
 
-            return AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, model.ProjectId);
+            return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, model.ProjectId));
         }
 
-        public Project DeleteCheckIn(string projectId, string checkInId, string applicationId)
+        public ProjectViewModel DeleteCheckIn(string projectId, string checkInId, string applicationId)
         {
             var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(projectId);
 
@@ -120,8 +121,36 @@ namespace WorkNotes.Business.Services
 
             project.CheckIns.Remove(checkIn);
 
-            return AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, projectId);
+            return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, projectId));
         }
 
+        public ProjectViewModel AddDeployPackage(AddDeployPackageRequestModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static ProjectViewModel toViewModel(Project model)
+        {
+            if (model != null)
+            {
+                var project = model.ToMap<ProjectViewModel>();
+                project.CheckIns.ForEach(x => x.ProjectId = project.Id);
+                project.Notes.ForEach(x => x.ProjectId = project.Id);
+                return project;
+            }
+            return null;
+        }
+
+        public static List<ProjectViewModel> toViewModel(List<Project> model)
+        {
+            if (model != null && model.Any())
+            {
+                var projectList = model.ToMap<List<ProjectViewModel>>();
+                projectList.ForEach(x => x.CheckIns.ForEach(y => y.ProjectId = x.Id));
+                projectList.ForEach(x => x.Notes.ForEach(y => y.ProjectId = x.Id));
+                return projectList;
+            }
+            return null;
+        }
     }
 }

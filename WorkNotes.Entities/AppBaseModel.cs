@@ -1,22 +1,20 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace WorkNotes.Entities
 {
-    public class MongoBaseModel
+    public class AppBaseModel
     {
-        [BsonId]
-        public ObjectId Id { get; set; }
+
+        public string Id { get; set; }
 
         [Required]
         [DisplayName("Kayıt Tarihi")]
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.Now;
 
         [DisplayName("Güncelleme Tarihi")]
-        public DateTime UpdateDate { get; set; }
+        public DateTime? UpdateDate { get; set; } = null;
 
         [Required]
         [DisplayName("Kayıt Statüsü")]

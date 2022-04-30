@@ -11,15 +11,13 @@
         </div>
         <!-- /Panel Heading -->
 
-        <form method="post" action="@Url.Action("AddBeamerPackageId","Checkin",null)">
+        <form method="post" action="@Url.Action("AddDeployPackage","Project",null)">
             @Html.HiddenFor(x => x.CheckinId)
             <div class="row">
                 <div class="col-md-12">
                     <div class="section">
                         <h6><i class="fa fa-fingerprint"></i> @Html.DisplayNameFor(x => x.DeployId) </h6>
-                        <label class="field">
-                            <input id="BeamerPackageId" name="BeamerPackageId" class="form-control" />
-                        </label>
+                        @Html.TextBoxFor(x=>x.DeployId, new{@class="form-control"})
                     </div>
                 </div>
 

@@ -22,6 +22,10 @@ namespace WorkNotes.Core
             serviceDictionary.TryAdd(type.TypeHandle, new EntityMeta(instance.GetType(), null));
         }
 
+        public void RegisterAsSingleton(Type type, object singletonInstance)
+        {
+            serviceDictionary.TryAdd(type.TypeHandle, new EntityMeta(singletonInstance.GetType(), singletonInstance));
+        }
 
         public T Get<T>()
         {
@@ -49,8 +53,16 @@ namespace WorkNotes.Core
 
             internal T CreateInstance<T>()
             {
-                var instance = (T)constructor();
-                return instance;
+                if (singletonInstance == null)
+                {
+                    var instance = constructor();
+                    return (T)instance;
+                }
+                else
+                {
+                    //Singleton olarak kaydedilen instance transactional değilse aynısını geri çevir.
+                    return (T)singletonInstance;
+                }
             }
         }
     }

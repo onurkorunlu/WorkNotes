@@ -136,7 +136,7 @@
     {
         <script>
             Snackbar.show({
-                    text: '@TempData["ErrorMessage"]',
+                    text: '@Html.Raw(TempData["ErrorMessage"])',
                     pos: 'bottom-right',
                     actionTextColor: '#fff',
                     backgroundColor: '#e7515a'

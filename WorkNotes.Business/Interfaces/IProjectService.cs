@@ -1,27 +1,27 @@
 ﻿using System.Collections.Generic;
-using WorkNotes.Entities;
 using WorkNotes.Entities.Enums;
 using WorkNotes.Models.RequestModel;
+using WorkNotes.Models.ViewModel;
 
 namespace WorkNotes.Business.Interfaces
 {
     public interface IProjectService
     {
-        ICollection<Project> GetAll();
+        ICollection<ProjectViewModel> GetAll();
 
-        Project GetById(string id);
+        ProjectViewModel GetById(string id);
 
-        Project Create(AddProjectRequestModel model);
+        ProjectViewModel Create(AddProjectRequestModel model);
 
-        Project Update(UpdateProjectRequestModel model);
+        ProjectViewModel Update(UpdateProjectRequestModel model);
 
-        Project UpdateStatus(string id, ProjectStatus status);
+        ProjectViewModel UpdateStatus(string id, ProjectStatus status);
 
-        Project Delete(string id);
+        ProjectViewModel Delete(string id);
 
-        Project AddCheckIn(AddCheckInRequestModel model);
+        ProjectViewModel AddCheckIn(AddCheckInRequestModel model);
 
-        Project DeleteCheckIn(string projectId, string checkInId, string applicationId);
-
+        ProjectViewModel DeleteCheckIn(string projectId, string checkInId, string applicationId);
+        ProjectViewModel AddDeployPackage(AddDeployPackageRequestModel model);
     }
 }

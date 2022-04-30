@@ -1,10 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WorkNotes.Business.Interfaces;
 using WorkNotes.Business.Services;
 using WorkNotes.Core;
@@ -21,22 +17,23 @@ namespace WorkNotes.Configuration
             ConfigurationCache.Instance.Add("MongoDbName", configuration.GetSection("MongoConnection:Database").Value);
         }
 
-        public static void RegisterServices(IServiceCollection services, IConfiguration configuration)
+        public static void RegisterServices()
         {
-
+            AppServiceProvider.Instance.RegisterAsSingleton(typeof(IMapper), AutoMapperBuilder.GetMapper());
         }
 
-        public static void RegisterBusinessServices(IServiceCollection services, IConfiguration configuration)
+        public static void RegisterBusinessServices()
         {
             AppServiceProvider.Instance.Register(typeof(IProjectService), new ProjectService());
             AppServiceProvider.Instance.Register(typeof(ICheckInService), new CheckInService());
             AppServiceProvider.Instance.Register(typeof(IApplicationService), new ApplicationService());
         }
 
-        public static void RegisterDataAccessServices(IServiceCollection services, IConfiguration configuration)
+        public static void RegisterDataAccessServices()
         {
             AppServiceProvider.Instance.Register(typeof(IProjectDataAccess), new ProjectDataAccess());
             AppServiceProvider.Instance.Register(typeof(IApplicationDataAccess), new ApplicationDataAccess());
         }
+
     }
 }

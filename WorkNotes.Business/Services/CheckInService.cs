@@ -18,7 +18,7 @@ namespace WorkNotes.Business.Services
         public void Delete(string checkInId, string projectId)
         {
             var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(projectId);
-            project.CheckIns.RemoveAll(x=>x.Id == ObjectId.Parse(projectId));
+            project.CheckIns.RemoveAll(x=>x.CheckinId == checkInId);
             AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, projectId);
         }
 

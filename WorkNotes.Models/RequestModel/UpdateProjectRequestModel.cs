@@ -7,6 +7,7 @@ namespace WorkNotes.Models.RequestModel
 {
     public class UpdateProjectRequestModel
     {
+        [Required(ErrorMessage ="Proje Id'si zorunludur.")]
         public string Id { get; set; }
 
         [Required(ErrorMessage = "Proje Kodu zorunludur")]

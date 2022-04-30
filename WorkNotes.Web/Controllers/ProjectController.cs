@@ -264,5 +264,52 @@ namespace WorkNotes.Web.Controllers
         }
 
         #endregion
+
+        #region DeployPackage
+
+        public ActionResult AddDeployPackage(AddDeployPackageRequestModel model)
+        {
+            try
+            {
+                CheckModelState(model);
+                var project = AppServiceProvider.Instance.Get<IProjectService>().AddDeployPackage(model);
+                return RedirectToAction("Detail", new { id = project.Id.ToString() });
+            }
+            catch (AppException e)
+            {
+                ShowError(e);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+            catch (Exception ex)
+            {
+                AppException appException = new(ReturnMessages.GENERIC_ERROR, ex);
+                ShowError(appException);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+        }
+
+        public ActionResult DeleteDeployPackage(DeleteCheckInRequestModel model)
+        {
+            try
+            {
+                CheckModelState(model);
+                var project = AppServiceProvider.Instance.Get<IProjectService>().DeleteCheckIn(model.ProjectId, model.CheckInId, model.ApplicationId);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+            catch (AppException e)
+            {
+                ShowError(e);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+            catch (Exception ex)
+            {
+                AppException appException = new(ReturnMessages.GENERIC_ERROR, ex);
+                ShowError(appException);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+        }
+
+        #endregion
+        
     }
 }
