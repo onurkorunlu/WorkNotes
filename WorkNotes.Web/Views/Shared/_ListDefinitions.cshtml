@@ -1,5 +1,6 @@
-﻿@using WorkNotes.Entities
-@model IEnumerable<CheckIn>
+﻿@using WorkNotes.Models.RequestModel
+@using WorkNotes.Models.ViewModel
+@model IEnumerable<CheckInViewModel>
 
 @{
     string tableGuidId = Guid.NewGuid().ToString();
@@ -9,7 +10,7 @@
     <thead>
         <tr>
             <th>@Html.DisplayNameFor(x => x.Enviroment)</th>
-            <th>@Html.DisplayNameFor(x => x.CheckinId)</th>
+            <th>@Html.DisplayNameFor(x => x.ChangesetId)</th>
             <th>@Html.DisplayNameFor(x => x.Application.Name)</th>
             <th>@Html.DisplayNameFor(x => x.Description)</th>
             <th>@Html.DisplayNameFor(x => x.CreateDate)</th>
@@ -19,56 +20,56 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Where(x => x.IsDbMigration).OrderBy(x=>x.Id).ToList())
+        @foreach (var item in Model.Where(x => x.IsDbMigration).OrderBy(x => x.Id).ToList())
         {
-        <tr>
-            <td>@item.Enviroment</td>
-            <td>@item.CheckinId</td>
-            <td>@item.Application.Name</td>
-            <td>@item.Description</td>
-            <td>@item.CreateDate</td>
-            <td>
-                @if (item.DeployPackageId != null)
-                {
-                    @item.DeployPackageId
-                }
-            </td>
-            <td>
-                @{
-                    if (item.IsDeployed)
+            <tr>
+                <td>@item.Enviroment</td>
+                <td>@item.ChangesetId</td>
+                <td>@item.Application.Name</td>
+                <td>@item.Description</td>
+                <td>@item.CreateDate</td>
+                <td>
+                    @if (item.DeployPackageId != null)
                     {
-                        <i class="fa fa-check-circle" style="font-size:x-large"></i>
+                        @item.DeployPackageId
+                    }
+                </td>
+                <td>
+                    @{
+                        if (item.IsDeployed)
+                        {
+                            <i class="fa fa-check-circle" style="font-size:x-large"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-times-circle" style="font-size:x-large"></i>
+
+                        }
+                    }
+                </td>
+                <td width="15%">
+                    <a href="javascript:addNewDeployment('@item.Id');" class="btn btn-info" onclick="">
+                        <i class="fa fa-truck"></i>
+                    </a>
+                    <a class="btn btn-danger" href="@Url.Action("DeleteCheckin","Project",new { ProjectId =item.ProjectId, Id = item.Id})">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                    @if (!item.IsDeployed)
+                    {
+                        <a href="@Url.Action("UpdateIsDeployStatus","Project",new { CheckInId=item.Id,IsDeployed=true, ProjectId = item.ProjectId})" class="btn btn-success">
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
                     }
                     else
                     {
-                        <i class="fa fa-times-circle" style="font-size:x-large"></i>
-
+                        <a href="@Url.Action("UpdateIsDeployStatus","Project",new { CheckInId=item.Id,IsDeployed=false, ProjectId = item.ProjectId})" class="btn btn-warning">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
                     }
-                }
-            </td>
-            <td width="15%">
-                <button class="btn btn-info" onclick="addNewDeployment(@item.CheckinId);">
-                    <i class="fa fa-truck"></i>
-                </button>
-                <a class="btn btn-danger" href="@Url.Action("DeleteCheckin","Checkin",new { Id =item.Id})">
-                    <i class="fa fa-trash"></i>
-                </a>
-                @if (!item.IsDeployed)
-                {
-                    <a href="@Url.Action("DeployCheckin","Checkin",new { Id=item.Id,IsDeployed=true})" class="btn btn-success">
-                        <i class="fa fa-arrow-right"></i>
-                    </a>
-                }
-                else
-                {
-                    <a href="@Url.Action("DeployCheckin","Checkin",new { Id=item.Id,IsDeployed=false})" class="btn btn-warning">
-                        <i class="fa fa-arrow-left"></i>
-                    </a>
-                }
 
-            </td>
-        </tr>
-            @Html.Partial("_AddBeamerPackage", item)
+                </td>
+            </tr>
+            <partial name="_AddDeployPackage" model="new UpdateDeployPackageIdRequestModel{CheckInId=item.Id, DeployPackageId=item.DeployPackageId, ProjectId = item.ProjectId}" />
         }
     </tbody>
 </table>

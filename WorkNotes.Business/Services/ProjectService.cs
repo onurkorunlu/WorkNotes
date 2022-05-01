@@ -83,7 +83,7 @@ namespace WorkNotes.Business.Services
                 throw new AppException(ReturnMessages.ITEM_NOT_FOUND);
             }
 
-            if (project.CheckIns.Any(x => x.CheckinId == model.CheckinId && x.Application.Id.ToString() == model.ApplicationId))
+            if (project.CheckIns.Any(x => x.ChangesetId == model.ChangesetId && x.Application.Id.ToString() == model.ApplicationId))
             {
                 return project.ToMap<ProjectViewModel>(); ;
             }
@@ -91,9 +91,9 @@ namespace WorkNotes.Business.Services
             CheckIn checkIn = new()
             {
                 Application = application,
-                CheckinId = model.CheckinId,
-                DeployPackageId = model.DeployPackageId,
-                Description = model.Description,
+                ChangesetId = model.ChangesetId.SafeTrim(),
+                DeployPackageId = model.DeployPackageId.SafeTrim(),
+                Description = model.Description.SafeTrim(),
                 Enviroment = model.Enviroment,
                 IsDbMigration = model.IsDbMigration,
                 IsDeployed = model.IsDeployed
@@ -104,7 +104,7 @@ namespace WorkNotes.Business.Services
             return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, model.ProjectId));
         }
 
-        public ProjectViewModel DeleteCheckIn(string projectId, string checkInId, string applicationId)
+        public ProjectViewModel DeleteCheckIn(string id, string projectId)
         {
             var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(projectId);
 
@@ -113,7 +113,7 @@ namespace WorkNotes.Business.Services
                 throw new AppException(ReturnMessages.ITEM_NOT_FOUND);
             }
 
-            var checkIn = project.CheckIns.FirstOrDefault(x => x.CheckinId == checkInId && x.Application.Id.ToString() == applicationId);
+            var checkIn = project.CheckIns.FirstOrDefault(x => x.Id == id);
             if (checkIn == null)
             {
                 throw new AppException(ReturnMessages.ITEM_NOT_FOUND);
@@ -124,9 +124,24 @@ namespace WorkNotes.Business.Services
             return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, projectId));
         }
 
-        public ProjectViewModel AddDeployPackage(AddDeployPackageRequestModel model)
+        public ProjectViewModel UpdateDeployPackageId(UpdateDeployPackageIdRequestModel model)
         {
-            throw new NotImplementedException();
+            var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(model.ProjectId);
+            var checkIn = project.CheckIns.First(x => x.Id == model.CheckInId);
+            checkIn.DeployPackageId = model.DeployPackageId.SafeTrim();
+            if (string.IsNullOrWhiteSpace(model.DeployPackageId))
+            {
+                checkIn.IsDeployed = false;
+            }
+            return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, model.ProjectId.ToString()));
+        }
+
+        public ProjectViewModel UpdateIsDeployedStatus(UpdateIsDeployedStatusRequestModel model)
+        {
+            var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(model.ProjectId);
+            var checkIn = project.CheckIns.First(x => x.Id == model.CheckInId);
+            checkIn.IsDeployed = model.IsDeployed;
+            return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, model.ProjectId.ToString()));
         }
 
         public static ProjectViewModel toViewModel(Project model)

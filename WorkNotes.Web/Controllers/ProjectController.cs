@@ -39,7 +39,7 @@ namespace WorkNotes.Web.Controllers
         {
             try
             {
-                return View("Index", AppServiceProvider.Instance.Get<IProjectService>().GetAll()?.Where(x => x.Type == ProjectType.ITSM && x.RecordStatus));
+                return View("Index", AppServiceProvider.Instance.Get<IProjectService>().GetAll()?.Where(x => x.Type == ProjectType.ITSM));
             }
             catch (AppException e)
             {
@@ -247,7 +247,7 @@ namespace WorkNotes.Web.Controllers
             try
             {
                 CheckModelState(model);
-                var project = AppServiceProvider.Instance.Get<IProjectService>().DeleteCheckIn(model.ProjectId, model.CheckInId, model.ApplicationId);
+                var project = AppServiceProvider.Instance.Get<IProjectService>().DeleteCheckIn(model.Id, model.ProjectId);
                 return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
             }
             catch (AppException e)
@@ -267,12 +267,12 @@ namespace WorkNotes.Web.Controllers
 
         #region DeployPackage
 
-        public ActionResult AddDeployPackage(AddDeployPackageRequestModel model)
+        public ActionResult UpdateDeployPackageId(UpdateDeployPackageIdRequestModel model)
         {
             try
             {
                 CheckModelState(model);
-                var project = AppServiceProvider.Instance.Get<IProjectService>().AddDeployPackage(model);
+                var project = AppServiceProvider.Instance.Get<IProjectService>().UpdateDeployPackageId(model);
                 return RedirectToAction("Detail", new { id = project.Id.ToString() });
             }
             catch (AppException e)
@@ -288,13 +288,13 @@ namespace WorkNotes.Web.Controllers
             }
         }
 
-        public ActionResult DeleteDeployPackage(DeleteCheckInRequestModel model)
+        public ActionResult UpdateIsDeployStatus(UpdateIsDeployedStatusRequestModel model)
         {
             try
             {
                 CheckModelState(model);
-                var project = AppServiceProvider.Instance.Get<IProjectService>().DeleteCheckIn(model.ProjectId, model.CheckInId, model.ApplicationId);
-                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+                var project = AppServiceProvider.Instance.Get<IProjectService>().UpdateIsDeployedStatus(model);
+                return RedirectToAction("Detail", new { id = project.Id.ToString() });
             }
             catch (AppException e)
             {
@@ -308,8 +308,7 @@ namespace WorkNotes.Web.Controllers
                 return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
             }
         }
-
         #endregion
-        
+
     }
 }

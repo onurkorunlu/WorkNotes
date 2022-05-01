@@ -1,6 +1,4 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using WorkNotes.Entities.Enums;
 
@@ -9,8 +7,8 @@ namespace WorkNotes.Entities
     public class CheckIn : AppBaseModel
     {
         [Required]
-        [DisplayName("CheckIn Id")]
-        public string CheckinId { get; set; }
+        [DisplayName("Changeset Id")]
+        public string ChangesetId { get; set; }
 
         [Required]
         [DisplayName("Açıklama")]

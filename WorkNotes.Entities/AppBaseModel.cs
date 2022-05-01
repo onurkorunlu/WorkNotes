@@ -7,7 +7,7 @@ namespace WorkNotes.Entities
     public class AppBaseModel
     {
 
-        public string Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
         [DisplayName("Kayıt Tarihi")]

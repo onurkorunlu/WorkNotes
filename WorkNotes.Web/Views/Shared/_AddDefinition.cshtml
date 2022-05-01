@@ -1,35 +1,31 @@
 ﻿@using WorkNotes.Common.Helpers
 @using WorkNotes.Models.RequestModel
-@model AddDefinitionRequestModel
+@model AddCheckInRequestModel
 
 <!-- AllCP Form Popup -->
 <div id="addDefinitionModalForm" class=" popup-basic allcp-form mfp-with-anim mfp-hide" style="width:40%">
     <div class="panel">
         <div class="panel-heading">
             <span class="panel-title">
-                <i class="fa fa-rocket"></i>Yeni Definition Ekle
+                <i class="fa fa-rocket"></i>Yeni Checkin Ekle
             </span>
         </div>
         <!-- /Panel Heading -->
 
-        <form method="post" action="@Url.Action("AddDefinition","Definition",null)">
+        <form method="post" action="@Url.Action("AddCheckin","Project",null)">
             @Html.HiddenFor(x => x.ProjectId)
             @Html.HiddenFor(x => x.IsDbMigration)
             <div class="row">
                 <div class="col-md-6">
                     <div class="section">
-                        <h6><i class="fa fa-fingerprint"></i> @Html.DisplayNameFor(x => x.CheckinId) </h6>
-                        <label class="field">
-                            @Html.TextBoxFor(x => x.CheckinId, new { @Class = "form-control",@autocomplete="off"})
-                        </label>
+                        <h6><i class="fa fa-fingerprint"></i> @Html.DisplayNameFor(x => x.ChangesetId) </h6>
+                        @Html.TextBoxFor(x => x.ChangesetId, new { @Class = "form-control" , @type="number", @autocomplete="off"})
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="section">
                         <h6><i class="fa fa-globe-americas"></i> @Html.DisplayNameFor(x => x.Enviroment)</h6>
-                        <label class="field">
-                            <select asp-for="Enviroment" asp-items="Html.GetEnumSelectList(typeof(WorkNotes.Entities.Enums.Enviroment))" class="form-control" ng-model="addModel.enviroment"></select>
-                        </label>
+                        <select asp-for="Enviroment" asp-items="Html.GetEnumSelectList(typeof(WorkNotes.Entities.Enums.Enviroment))" class="form-control" ng-model="addModel.enviroment"></select>
                     </div>
                 </div>
             </div>
@@ -37,9 +33,7 @@
                 <div class="col-md-12">
                     <div class="section">
                         <h6><i class="fa fa-layer-group"></i> @Html.DisplayNameFor(x => x.ApplicationId)</h6>
-                        <label class="field">
-                            <select asp-for="ApplicationId" asp-items="ApplicationHelper.GetApplications()" class="form-control" ng-model="addModel.applicationId"></select>
-                        </label>
+                        <select asp-for="ApplicationId" asp-items="ApplicationHelper.GetApplications(true)" class="form-control" ng-model="addModel.applicationId"></select>
                     </div>
                 </div>
             </div>
@@ -47,24 +41,30 @@
                 <div class="col-md-12">
                     <div class="section">
                         <h6><i class="fa fa-file-alt"></i> @Html.DisplayNameFor(x => x.Description)</h6>
-                        <label class="field">
-                            @Html.TextAreaFor(x => x.Description, new { @Class = "form-control" })
-                        </label>
+                        @Html.TextAreaFor(x => x.Description, new { @Class = "form-control" })
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="section" id="addCheckInDeployPackageId">
+                        <h6><i class="fa fa-fingerprint"></i> @Html.DisplayNameFor(x => x.DeployPackageId) </h6>
+                        @Html.TextBoxFor(x => x.DeployPackageId, new { @Class = "form-control" , @autocomplete="off"})
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="section">
                         <h6>
-                            <i class="fa fa-space-shuttle"></i> @Html.DisplayNameFor(x => x.IsDeployed) &nbsp;
-                            @Html.CheckBoxFor(x => x.IsDeployed, new { })
-
+                            <i class="fa fa-space-shuttle"></i>
+                            @Html.DisplayNameFor(x => x.IsDeployed) &nbsp;
+                            @Html.CheckBoxFor(x => x.IsDeployed, new {id="addCheckInIsDeployed"})
                         </h6>
 
                     </div>
                 </div>
             </div>
+
+            @Html.HiddenFor(x=>x.IsDbMigration,new { @Value=true})
 
             <div class="row">
                 <div class="col-md-12">

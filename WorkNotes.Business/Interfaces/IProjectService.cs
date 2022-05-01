@@ -21,7 +21,8 @@ namespace WorkNotes.Business.Interfaces
 
         ProjectViewModel AddCheckIn(AddCheckInRequestModel model);
 
-        ProjectViewModel DeleteCheckIn(string projectId, string checkInId, string applicationId);
-        ProjectViewModel AddDeployPackage(AddDeployPackageRequestModel model);
+        ProjectViewModel DeleteCheckIn(string id, string projectId);
+        ProjectViewModel UpdateDeployPackageId(UpdateDeployPackageIdRequestModel model);
+        ProjectViewModel UpdateIsDeployedStatus(UpdateIsDeployedStatusRequestModel model);
     }
 }

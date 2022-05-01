@@ -15,11 +15,12 @@
 
         <form method="post" action="@Url.Action("AddCheckin","Project",null)">
             @Html.HiddenFor(x => x.ProjectId)
+            @Html.HiddenFor(x => x.IsDbMigration, new{@value=false})
             <div class="row">
                 <div class="col-md-6">
                     <div class="section">
-                        <h6><i class="fa fa-fingerprint"></i> @Html.DisplayNameFor(x => x.CheckinId) </h6>
-                        @Html.TextBoxFor(x => x.CheckinId, new { @Class = "form-control" , @type="number", @autocomplete="off"})
+                        <h6><i class="fa fa-fingerprint"></i> @Html.DisplayNameFor(x => x.ChangesetId) </h6>
+                        @Html.TextBoxFor(x => x.ChangesetId, new { @Class = "form-control" , @type="number", @autocomplete="off"})
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -46,7 +47,7 @@
                 </div>
             </div>
             <div class="row">
-                  <div class="col-md-6">
+                <div class="col-md-6">
                     <div class="section" id="addCheckInDeployPackageId">
                         <h6><i class="fa fa-fingerprint"></i> @Html.DisplayNameFor(x => x.DeployPackageId) </h6>
                         @Html.TextBoxFor(x => x.DeployPackageId, new { @Class = "form-control" , @autocomplete="off"})

@@ -18,21 +18,7 @@ namespace WorkNotes.Business.Services
         public void Delete(string checkInId, string projectId)
         {
             var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(projectId);
-            project.CheckIns.RemoveAll(x=>x.CheckinId == checkInId);
-            AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, projectId);
-        }
-
-        public void Update(CheckIn checkIn, string projectId)
-        {
-            var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(projectId);
-            var modifiedCheckin = project.CheckIns.Find(x => x.Id == checkIn.Id);
-            modifiedCheckin.Application = checkIn.Application;
-            modifiedCheckin.DeployPackageId = checkIn.DeployPackageId;
-            modifiedCheckin.CheckinId = checkIn.CheckinId;
-            modifiedCheckin.Description = checkIn.Description;
-            modifiedCheckin.Enviroment = checkIn.Enviroment;
-            modifiedCheckin.IsDbMigration = checkIn.IsDbMigration;
-            modifiedCheckin.IsDeployed = checkIn.IsDeployed;
+            project.CheckIns.RemoveAll(x=>x.ChangesetId == checkInId);
             AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, projectId);
         }
     }

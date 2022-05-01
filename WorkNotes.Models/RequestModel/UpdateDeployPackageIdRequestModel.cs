@@ -3,15 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WorkNotes.Models.RequestModel
 {
-    public class AddDeployPackageRequestModel
+    public class UpdateDeployPackageIdRequestModel
     {
-        [Required(ErrorMessage = "Checkin Id zorunludur")]
+        [Required(ErrorMessage = "CheckIn Id zorunludur")]
         [DisplayName("CheckIn Id")]
-        public string CheckinId { get; set; }
+        public string CheckInId { get; set; }
 
-        [Required(ErrorMessage = "Paket Id zorunludur")]
         [DisplayName("Paket Id")]
-        public string DeployId { get; set; }
+        public string DeployPackageId { get; set; }
 
         [Required(ErrorMessage = "Proje Id zorunludur")]
         [DisplayName("Proje Id")]

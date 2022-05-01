@@ -6,8 +6,8 @@ namespace WorkNotes.Models.ViewModel
 {
     public class CheckInViewModel : AppBaseModel
     {
-        [DisplayName("CheckIn Id")]
-        public string CheckinId { get; set; }
+        [DisplayName("Changeset Id")]
+        public string ChangesetId { get; set; }
 
         [DisplayName("Açıklama")]
         public string Description { get; set; }
@@ -18,6 +18,7 @@ namespace WorkNotes.Models.ViewModel
         [DisplayName("Geliştirme Ortamı")]
         public Enviroment Enviroment { get; set; }
 
+        [DisplayName("Taşıma Paket Id")]
         public string DeployPackageId { get; set; }
 
         [DisplayName("Db Paketi Mi?")]

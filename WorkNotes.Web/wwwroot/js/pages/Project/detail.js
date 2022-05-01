@@ -101,9 +101,9 @@ function textAreaAdjust(o) {
     o.style.height = (20 + o.scrollHeight) + "px";
 }
 
-function deleteConfirm(id, code) {
+function deleteConfirm(id, code, url) {
     confirmJs('Proje Siliniyor', code + ' kodlu proje silinecek onaylıyor musunuz ?', function () {
-        window.location.replace("/Project/Delete?id=" + id);
+        window.location.replace(url + "?id=" + id);
     });
 }
 

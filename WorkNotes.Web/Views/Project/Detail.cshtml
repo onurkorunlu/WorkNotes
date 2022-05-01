@@ -152,7 +152,7 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-danger" onclick="deleteConfirm('@Model.Id.ToString()','@Model.Code')">Projeyi Sil</button>
+                                <button type="button" class="btn btn-danger" onclick="deleteConfirm('@Model.Id.ToString()','@Model.Code', '@Url.Action("Delete","Project")')">Projeyi Sil</button>
                             </div>
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-info pull-right">Güncelle</button>
@@ -299,7 +299,7 @@
                                     <div class="panel-body mt45">
                                         <div class="table-responsive">
                                             <div class="bs-component">
-                                                <partial name="ListDefinitions" model="Model.CheckIns.Where(x => x.IsDbMigration).ToList()" />
+                                                <partial name="_ListDefinitions" model="Model.CheckIns.Where(x => x.IsDbMigration).ToList()" />
                                             </div>
                                         </div>
                                     </div>
@@ -343,8 +343,8 @@
 
 
 <partial name="_AddCheckin" model="new AddCheckInRequestModel(){ ProjectId = Model.Id.ToString(), Enviroment = env }" />
+<partial name="_AddDefinition" model="new AddCheckInRequestModel(){ ProjectId = Model.Id.ToString(), Enviroment = env, IsDbMigration = true }" />
 <partial name="_AddNote" model="new AddNoteRequestModel(){ ProjectId = Model.Id.ToString()}" />
-<partial name="_AddDefinition" model="new AddDefinitionRequestModel(){ ProjectId = Model.Id.ToString(), Enviroment = env, IsDbMigration = true }" />
 
 <script src=~/js/pages/Project/detail.js></script>
 <script src="~/js/pages/Project/listCheckin.js"></script>
