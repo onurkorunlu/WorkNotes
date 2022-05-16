@@ -247,7 +247,53 @@ namespace WorkNotes.Web.Controllers
             try
             {
                 CheckModelState(model);
-                var project = AppServiceProvider.Instance.Get<IProjectService>().DeleteCheckIn(model.Id, model.ProjectId);
+                var project = AppServiceProvider.Instance.Get<IProjectService>().DeleteCheckIn(model);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+            catch (AppException e)
+            {
+                ShowError(e);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+            catch (Exception ex)
+            {
+                AppException appException = new(ReturnMessages.GENERIC_ERROR, ex);
+                ShowError(appException);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+        }
+
+        #endregion
+
+        #region Note
+
+        public ActionResult AddNote(AddNoteRequestModel model)
+        {
+            try
+            {
+                CheckModelState(model);
+                var project = AppServiceProvider.Instance.Get<IProjectService>().AddNote(model);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+            catch (AppException e)
+            {
+                ShowError(e);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+            catch (Exception ex)
+            {
+                AppException appException = new(ReturnMessages.GENERIC_ERROR, ex);
+                ShowError(appException);
+                return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
+            }
+        }
+
+        public ActionResult DeleteNote(DeleteNoteRequestModel model)
+        {
+            try
+            {
+                CheckModelState(model);
+                var project = AppServiceProvider.Instance.Get<IProjectService>().DeleteNote(model);
                 return RedirectToAction("Detail", new { id = model.ProjectId.ToString() });
             }
             catch (AppException e)
@@ -309,6 +355,5 @@ namespace WorkNotes.Web.Controllers
             }
         }
         #endregion
-
     }
 }

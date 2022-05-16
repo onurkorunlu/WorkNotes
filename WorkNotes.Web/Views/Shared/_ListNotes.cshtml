@@ -1,5 +1,6 @@
 ﻿@using WorkNotes.Entities
-@model IEnumerable<Note>
+@using WorkNotes.Models.ViewModel
+@model IEnumerable<NoteViewModel>
 
 @{
     string tableGuidId = Guid.NewGuid().ToString();
@@ -18,7 +19,7 @@
         <tr>
             <td width="90%">@item.Text.ToString()</td>
             <td width="10%">
-                <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteNote","Note",new { Id =item.Id})">
+                <a class="btn btn-danger btn-sm" href="@Url.Action("DeleteNote","Project",new { Id =item.Id, ProjectId = item.ProjectId})">
                     <i class="fa fa-trash"></i>
                 </a>
             </td>

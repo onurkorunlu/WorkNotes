@@ -6,9 +6,6 @@ namespace WorkNotes.Models.RequestModel
 {
     public class AddCheckInRequestModel
     {
-        [Required(ErrorMessage = "Changeset Id zorunludur")]
-        [MinLength(1, ErrorMessage = "Changeset Id alanı en az 5 karakter olmalıdır.")]
-        [MaxLength(20, ErrorMessage = "Changeset Id alanı en fazla 20 karakter olmalıdır.")]
         [DisplayName("Changeset Id")]
         public string ChangesetId { get; set; }
 

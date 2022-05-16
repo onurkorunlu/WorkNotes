@@ -65,24 +65,6 @@
                                     <span>ITSM Kayıtları</span>
                                 </a>
                             </li>
-                            <li class="@(Context.Request.Path.Value.Equals("/Checkin") ? "active" : "")">
-                                <a href="@Url.Action("Index","Checkin")">
-                                    <i class="fa fa-code"></i>
-                                    <span>Checkin Geçmişi</span>
-                                </a>
-                            </li>
-                            <li class="@(Context.Request.Path.Value.Equals("/Note") ? "active" : "")">
-                                <a href="@Url.Action("Index","Note")">
-                                    <i class="fa fa-sticky-note"></i>
-                                    <span>Notlar</span>
-                                </a>
-                            </li>
-                            <li class="@(Context.Request.Path.Value.Equals("/LogMonitoring") ? "active" : "")">
-                                <a href="@Url.Action("Index","LogMonitoring")">
-                                    <i class="fa fa-eye"></i>
-                                    <span>Log İzleme</span>
-                                </a>
-                            </li>
                             <li class="@(Context.Request.Path.Value.Equals("/Application") ? "active" : "")">
                                 <a href="@Url.Action("Index","Application")">
                                     <i class="fa fa-clone"></i>

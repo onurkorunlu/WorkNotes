@@ -78,6 +78,11 @@ namespace WorkNotes.Business.Services
             var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(model.ProjectId);
             var application = AppServiceProvider.Instance.Get<IApplicationDataAccess>().GetById(model.ApplicationId);
 
+            if (model.Enviroment != Enviroment.DEV && string.IsNullOrWhiteSpace(model.ChangesetId))
+            {
+                throw new AppException(ReturnMessages.CHANGESET_ID_EMPTY);
+            }
+
             if (project == null || application == null)
             {
                 throw new AppException(ReturnMessages.ITEM_NOT_FOUND);
@@ -104,16 +109,16 @@ namespace WorkNotes.Business.Services
             return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, model.ProjectId));
         }
 
-        public ProjectViewModel DeleteCheckIn(string id, string projectId)
+        public ProjectViewModel DeleteCheckIn(DeleteCheckInRequestModel model)
         {
-            var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(projectId);
+            var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(model.ProjectId);
 
             if (project == null)
             {
                 throw new AppException(ReturnMessages.ITEM_NOT_FOUND);
             }
 
-            var checkIn = project.CheckIns.FirstOrDefault(x => x.Id == id);
+            var checkIn = project.CheckIns.FirstOrDefault(x => x.Id == model.Id);
             if (checkIn == null)
             {
                 throw new AppException(ReturnMessages.ITEM_NOT_FOUND);
@@ -121,7 +126,7 @@ namespace WorkNotes.Business.Services
 
             project.CheckIns.Remove(checkIn);
 
-            return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, projectId));
+            return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, model.ProjectId));
         }
 
         public ProjectViewModel UpdateDeployPackageId(UpdateDeployPackageIdRequestModel model)
@@ -166,6 +171,45 @@ namespace WorkNotes.Business.Services
                 return projectList;
             }
             return null;
+        }
+
+        public ProjectViewModel AddNote(AddNoteRequestModel model)
+        {
+            var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(model.ProjectId);
+
+            if (project == null )
+            {
+                throw new AppException(ReturnMessages.ITEM_NOT_FOUND);
+            }
+
+            Note note = new()
+            {
+                Text = model.Text
+            };
+
+            project.Notes.Add(note);
+
+            return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, model.ProjectId));
+        }
+
+        public ProjectViewModel DeleteNote(DeleteNoteRequestModel model)
+        {
+            var project = AppServiceProvider.Instance.Get<IProjectDataAccess>().GetById(model.ProjectId);
+
+            if (project == null)
+            {
+                throw new AppException(ReturnMessages.ITEM_NOT_FOUND);
+            }
+
+            var note = project.Notes.FirstOrDefault(x => x.Id == model.Id);
+            if (note == null)
+            {
+                throw new AppException(ReturnMessages.ITEM_NOT_FOUND);
+            }
+
+            project.Notes.Remove(note);
+
+            return toViewModel(AppServiceProvider.Instance.Get<IProjectDataAccess>().ReplaceOne(project, model.ProjectId));
         }
     }
 }

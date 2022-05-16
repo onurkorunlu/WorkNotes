@@ -22,5 +22,6 @@ namespace WorkNotes.Core
         public static KeyValuePair<string, string> MONGO_DB_NAME_NOT_FOUND_IN_CONFIGURATION = new KeyValuePair<string, string>("203", "Config içerisinde MongoDB veritabanı bilgisi bulunamadı.");
 
         public static KeyValuePair<string, string> ITEM_NOT_FOUND = new KeyValuePair<string, string>("2", "Veri bulunamadı.");
+        public static KeyValuePair<string, string> CHANGESET_ID_EMPTY = new KeyValuePair<string, string>("3", "Changeset Id boş olamaz.");
     }
 }

@@ -11,17 +11,15 @@
         </div>
         <!-- /Panel Heading -->
 
-        <form method="post" action="@Url.Action("AddNote","Note",null)">
+        <form method="post" action="@Url.Action("AddNote","Project",null)">
             @Html.HiddenFor(x => x.ProjectId)
 
             <div class="row">
                 <div class="col-md-12">
                     <div class="section">
                         <h6><i class="fa fa-file-alt"></i> @Html.DisplayNameFor(x => x.Text)</h6>
-                        <label class="field">
-                            @Html.TextAreaFor(x => x.Text, new { @Class = "form-control typeahead" ,@rows=10})
+                            @Html.TextAreaFor(x => x.Text, new { @Class = "form-control" ,@rows=10})
                             @Html.ValidationMessageFor(x => x.Text, "", new { @class = "text-danger", })
-                        </label>
                     </div>
                 </div>
             </div>

@@ -165,151 +165,245 @@
             </div>
             @if (Model.CheckIns != null)
             {
-
-                @if (Model.CheckIns.Any())
-                {
-                    if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.DEV).Any())
-                    {
-
-                        string aClass = "";
-                        string divClass = "collapse in";
-                        string divHeigt = "auto";
-                        if (Model.Status != ProjectStatus.DEV && Model.Status != ProjectStatus.RFQ)
-                        {
-                            aClass = "collapsed";
-                            divClass = "collapse";
-                            divHeigt = "0px";
-                        }
-
-                        <div class="bs-component">
-                            <div class="panel-group accordion" id="accordion">
-                                <div class="panel">
-                                    <div class="panel-heading">
-                                        <a class="accordion-toggle accordion-icon link-unstyled @aClass" data-toggle="collapse" data-parent="#accordion" href="#DevPanel">
-                                            DEV - Changesets
-                                        </a>
-                                    </div>
-
-                                    <div id="DevPanel" class="panel-collapse @divClass" style="height: @divHeigt;">
-                                        <div class="panel-body mt45">
-                                            <div class="table-responsive">
-                                                <div class="bs-component">
-                                                    <partial name="_ListCheckIns" model="Model?.CheckIns.Where(x => x.Enviroment == Enviroment.DEV).ToList()" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    }
-
-                    if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.UAT).Any())
-                    {
-
-                        string aClass = "";
-                        string divClass = "collapse in";
-                        string divHeigt = "auto";
-                        if (Model.Status != ProjectStatus.UAT)
-                        {
-                            aClass = "collapsed";
-                            divClass = "collapse";
-                            divHeigt = "0px";
-                        }
-
-                        <div class="bs-component">
-                            <div class="panel-group accordion" id="accordion">
-                                <div class="panel">
-                                    <div class="panel-heading">
-                                        <a class="accordion-toggle accordion-icon link-unstyled @aClass" data-toggle="collapse" data-parent="#accordion" href="#UatPanel">
-                                            UAT - Changesets
-                                        </a>
-                                    </div>
-
-                                    <div id="UatPanel" class="panel-collapse @divClass" style="height: @divHeigt;">
-                                        <div class="panel-body mt45">
-                                            <div class="table-responsive">
-                                                <div class="bs-component">
-                                                    <partial name="_ListCheckIns" model="Model?.CheckIns.Where(x => x.Enviroment == Enviroment.UAT).ToList()" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    }
-
-                    if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.PREPROD).Any())
-                    {
-                        string aClass = "";
-                        string divClass = "collapse in";
-                        string divHeigt = "auto";
-                        if (Model.Status != ProjectStatus.PREPROD && Model.Status != ProjectStatus.PROD && Model.Status != ProjectStatus.DONE)
-                        {
-                            aClass = "collapsed";
-                            divClass = "collapse";
-                            divHeigt = "0px";
-                        }
-                        <div class="bs-component">
-                            <div class="panel-group accordion" id="accordion">
-                                <div class="panel">
-                                    <div class="panel-heading">
-                                        <a class="accordion-toggle accordion-icon link-unstyled @aClass" data-toggle="collapse" data-parent="#accordion" href="#PreprodPanel">
-                                            PREPROD - Changesets
-                                        </a>
-                                    </div>
-
-                                    <div id="PreprodPanel" class="panel-collapse @divClass" style="height: @divHeigt;">
-                                        <div class="panel-body mt45">
-                                            <div class="table-responsive">
-                                                <div class="bs-component">
-                                                    <partial name="_ListCheckIns" model="Model.CheckIns.Where(x => x.Enviroment == Enviroment.PREPROD).ToList()" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    }
-                }
-
-                @if (Model.CheckIns.Any(x => x.IsDbMigration))
-                {
-
-                    string aClass = "";
-                    string divClass = "collapse in";
-                    string divHeigt = "auto";
-
-                    <div class="bs-component">
-                        <div class="panel-group accordion" id="accordion">
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <a class="accordion-toggle accordion-icon link-unstyled @aClass" data-toggle="collapse" data-parent="#accordion" href="#DefinitionPanel">
-                                        Tanımlar
-                                    </a>
-                                </div>
-
-                                <div id="DefinitionPanel" class="panel-collapse @divClass" style="height: @divHeigt;">
-                                    <div class="panel-body mt45">
-                                        <div class="table-responsive">
-                                            <div class="bs-component">
-                                                <partial name="_ListDefinitions" model="Model.CheckIns.Where(x => x.IsDbMigration).ToList()" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h6 style="font-size:small">Changesets</h6>
                     </div>
+                    <div class="panel-body pn">
+                        @if (Model.CheckIns.Any())
+                        {
+                            if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.DEV).Any())
+                            {
 
-                }
+                                string aClass = "";
+                                string divClass = "collapse in";
+                                string divHeigt = "auto";
+                                if (Model.Status != ProjectStatus.DEV && Model.Status != ProjectStatus.RFQ)
+                                {
+                                    aClass = "collapsed";
+                                    divClass = "collapse";
+                                    divHeigt = "0px";
+                                }
+
+                                <div class="bs-component">
+                                    <div class="panel-group accordion" id="accordion">
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <a class="accordion-toggle accordion-icon link-unstyled @aClass" data-toggle="collapse" data-parent="#accordion" href="#DevPanel">
+                                                    DEV
+                                                </a>
+                                            </div>
+
+                                            <div id="DevPanel" class="panel-collapse @divClass" style="height: @divHeigt;">
+                                                <div class="panel-body mt45">
+                                                    <div class="table-responsive">
+                                                        <div class="bs-component">
+                                                            <partial name="_ListCheckIns" model="Model?.CheckIns.Where(x => x.Enviroment == Enviroment.DEV).ToList()" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+                            if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.UAT).Any())
+                            {
+
+                                string aClass = "";
+                                string divClass = "collapse in";
+                                string divHeigt = "auto";
+                                if (Model.Status != ProjectStatus.UAT)
+                                {
+                                    aClass = "collapsed";
+                                    divClass = "collapse";
+                                    divHeigt = "0px";
+                                }
+
+                                <div class="bs-component">
+                                    <div class="panel-group accordion" id="accordion">
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <a class="accordion-toggle accordion-icon link-unstyled @aClass" data-toggle="collapse" data-parent="#accordion" href="#UatPanel">
+                                                    UAT
+                                                </a>
+                                            </div>
+
+                                            <div id="UatPanel" class="panel-collapse @divClass" style="height: @divHeigt;">
+                                                <div class="panel-body mt45">
+                                                    <div class="table-responsive">
+                                                        <div class="bs-component">
+                                                            <partial name="_ListCheckIns" model="Model?.CheckIns.Where(x => x.Enviroment == Enviroment.UAT).ToList()" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+                            if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.PREPROD).Any())
+                            {
+                                string aClass = "";
+                                string divClass = "collapse in";
+                                string divHeigt = "auto";
+                                if (Model.Status != ProjectStatus.PREPROD && Model.Status != ProjectStatus.PROD && Model.Status != ProjectStatus.DONE)
+                                {
+                                    aClass = "collapsed";
+                                    divClass = "collapse";
+                                    divHeigt = "0px";
+                                }
+                                <div class="bs-component">
+                                    <div class="panel-group accordion" id="accordion">
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <a class="accordion-toggle accordion-icon link-unstyled @aClass" data-toggle="collapse" data-parent="#accordion" href="#PreprodPanel">
+                                                    PREPROD
+                                                </a>
+                                            </div>
+
+                                            <div id="PreprodPanel" class="panel-collapse @divClass" style="height: @divHeigt;">
+                                                <div class="panel-body mt45">
+                                                    <div class="table-responsive">
+                                                        <div class="bs-component">
+                                                            <partial name="_ListCheckIns" model="Model.CheckIns.Where(x => x.Enviroment == Enviroment.PREPROD).ToList()" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h6 style="font-size:small">Db Changesets</h6>
+                    </div>
+                    <div class="panel-body pn">
+                        @if (Model.CheckIns.Any(x => x.IsDbMigration))
+                        {
+
+                            if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.DEV).Any())
+                            {
+                                string aClass = "";
+                                string divClass = "collapse in";
+                                string divHeigt = "auto";
+                                if (Model.Status != ProjectStatus.DEV && Model.Status != ProjectStatus.RFQ)
+                                {
+                                    aClass = "collapsed";
+                                    divClass = "collapse";
+                                    divHeigt = "0px";
+                                }
+
+                                <div class="bs-component">
+                                    <div class="panel-group accordion" id="accordion">
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <a class="accordion-toggle accordion-icon link-unstyled @aClass" data-toggle="collapse" data-parent="#accordion" href="#DbDevPanel">
+                                                    DEV
+                                                </a>
+                                            </div>
+
+                                            <div id="DbDevPanel" class="panel-collapse @divClass" style="height: @divHeigt;">
+                                                <div class="panel-body mt45">
+                                                    <div class="table-responsive">
+                                                        <div class="bs-component">
+                                                            <partial name="_ListDefinitions" model="Model?.CheckIns.Where(x => x.Enviroment == Enviroment.DEV && x.IsDbMigration).ToList()" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+                            if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.UAT).Any())
+                            {
+                                string aClass = "";
+                                string divClass = "collapse in";
+                                string divHeigt = "auto";
+                                if (Model.Status != ProjectStatus.UAT)
+                                {
+                                    aClass = "collapsed";
+                                    divClass = "collapse";
+                                    divHeigt = "0px";
+                                }
+
+                                <div class="bs-component">
+                                    <div class="panel-group accordion" id="accordion">
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <a class="accordion-toggle accordion-icon link-unstyled @aClass" data-toggle="collapse" data-parent="#accordion" href="#DbUatPanel">
+                                                    UAT
+                                                </a>
+                                            </div>
+
+                                            <div id="DbUatPanel" class="panel-collapse @divClass" style="height: @divHeigt;">
+                                                <div class="panel-body mt45">
+                                                    <div class="table-responsive">
+                                                        <div class="bs-component">
+                                                            <partial name="_ListDefinitions" model="Model?.CheckIns.Where(x => x.Enviroment == Enviroment.UAT && x.IsDbMigration).ToList()" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+                            if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.PREPROD).Any())
+                            {
+                                string aClass = "";
+                                string divClass = "collapse in";
+                                string divHeigt = "auto";
+                                if (Model.Status != ProjectStatus.PREPROD && Model.Status != ProjectStatus.PROD && Model.Status != ProjectStatus.DONE)
+                                {
+                                    aClass = "collapsed";
+                                    divClass = "collapse";
+                                    divHeigt = "0px";
+                                }
+                                <div class="bs-component">
+                                    <div class="panel-group accordion" id="accordion">
+                                        <div class="panel">
+                                            <div class="panel-heading">
+                                                <a class="accordion-toggle accordion-icon link-unstyled @aClass" data-toggle="collapse" data-parent="#accordion" href="#DbPreprodPanel">
+                                                    PREPROD
+                                                </a>
+                                            </div>
+
+                                            <div id="DbPreprodPanel" class="panel-collapse @divClass" style="height: @divHeigt;">
+                                                <div class="panel-body mt45">
+                                                    <div class="table-responsive">
+                                                        <div class="bs-component">
+                                                            <partial name="_ListDefinitions" model="Model.CheckIns.Where(x => x.Enviroment == Enviroment.PREPROD && x.IsDbMigration).ToList()" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+                        }
+                    </div>
+                </div>
             }
 
             @if (Model.Notes != null && Model.Notes.Any())
