@@ -293,7 +293,7 @@
                         @if (Model.CheckIns.Any(x => x.IsDbMigration))
                         {
 
-                            if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.DEV).Any())
+                            if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.DEV && x.IsDbMigration).Any())
                             {
                                 string aClass = "";
                                 string divClass = "collapse in";
@@ -329,7 +329,7 @@
 
                             }
 
-                            if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.UAT).Any())
+                            if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.UAT && x.IsDbMigration).Any())
                             {
                                 string aClass = "";
                                 string divClass = "collapse in";
@@ -365,7 +365,7 @@
 
                             }
 
-                            if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.PREPROD).Any())
+                            if (Model.CheckIns.Where(x => x.Enviroment == Enviroment.PREPROD && x.IsDbMigration).Any())
                             {
                                 string aClass = "";
                                 string divClass = "collapse in";
